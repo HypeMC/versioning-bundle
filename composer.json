@@ -1,0 +1,52 @@
+{
+    "name": "bizkit/versioning-bundle",
+    "description": "Symfony bundle which provides a way to version your application using various versioning strategies.",
+    "type": "symfony-bundle",
+    "keywords": [
+        "versioning",
+        "semver"
+    ],
+    "homepage": "https://github.com/HypeMC/versioning-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "HypeMC",
+            "email": "hypemc@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "ext-dom": "*",
+        "symfony/config": "^4.4 || ^5.0",
+        "symfony/console": "^4.4 || ^5.0",
+        "symfony/dependency-injection": "^4.4 || ^5.0",
+        "symfony/http-kernel": "^4.4 || ^5.0",
+        "symfony/yaml": "^4.4 || ^5.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16.3",
+        "symfony/phpunit-bridge": "^4.4 || ^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bizkit\\VersioningBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bizkit\\VersioningBundle\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "lint": "php-cs-fixer fix -v",
+        "test": "simple-phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    }
+}

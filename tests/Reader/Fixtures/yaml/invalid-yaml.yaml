@@ -1,0 +1,4 @@
+parameters:
+	application.version: 1.2.3
+	application.version_hash: b0e8daa258acbb6fc4c86f89e0c9183e
+	application.release_date: '2020-05-22T11:58:13+02:00'

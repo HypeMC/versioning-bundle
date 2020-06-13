@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+  <parameters>
+    <parameter type="string" key="app.version">3.2.1</parameter>
+    <parameter type="string" key="app.version_hash">f2f87b58be0d57ecf71ada8df361a2d9</parameter>
+    <parameter type="string" key="app.release_date">2020-02-25T10:46:12+02:00</parameter>
+  </parameters>
+</container>

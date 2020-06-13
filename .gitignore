@@ -1,0 +1,11 @@
+# Composer
+composer.lock
+vendor/
+
+# PHP Coding Standards Fixer
+.php_cs
+.php_cs.cache
+
+# PHPUnit
+.phpunit.result.cache
+phpunit.xml
