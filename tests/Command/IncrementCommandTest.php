@@ -8,6 +8,7 @@ use Bizkit\VersioningBundle\Command\IncrementCommand;
 use Bizkit\VersioningBundle\Reader\YamlFileReader;
 use Bizkit\VersioningBundle\Strategy\IncrementingStrategy;
 use Bizkit\VersioningBundle\Tests\TestCase;
+use Bizkit\VersioningBundle\VCS\GitHandler;
 use Bizkit\VersioningBundle\Writer\YamlFileWriter;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Yaml\Yaml;
@@ -148,14 +149,65 @@ final class IncrementCommandTest extends TestCase
         $this->assertSame('1', $yaml['parameters']['app.version']);
     }
 
-    private function createCommandTester(string $file): CommandTester
+    public function testFileIsCommittedAndTagIsCreatedIfVCSHandlerIsNotNullAndConfirmationIsTrue(): void
     {
+        $commandTester = $this->createCommandTester($this->validFile, __DIR__.'/Fixtures/fake-git/success.php');
+        $commandTester->setInputs(['yes', 'yes']);
+
+        $statusCode = $commandTester->execute([]);
+        $display = $commandTester->getDisplay();
+
+        $this->assertSame(0, $statusCode);
+        $this->assertStringContainsString('Your current application version is "1", do you wish to increment it?', $display);
+        $this->assertStringContainsString('Your application version has been incremented to "2".', $display);
+        $this->assertStringContainsString('Your application version file has successfully been committed to your VCS.', $display);
+        $this->assertStringContainsString('Do you wish to create a tag with the version "2"?', $display);
+        $this->assertStringContainsString('Your application has successfully been tagged with the version "2".', $display);
+    }
+
+    public function testFileIsCommittedAndTagIsNotCreatedIfVCSHandlerIsNotNullAndConfirmationIsFalse(): void
+    {
+        $commandTester = $this->createCommandTester($this->validFile, __DIR__.'/Fixtures/fake-git/success.php');
+        $commandTester->setInputs(['yes', 'no']);
+
+        $statusCode = $commandTester->execute([]);
+        $display = $commandTester->getDisplay();
+
+        $this->assertSame(0, $statusCode);
+        $this->assertStringContainsString('Your current application version is "1", do you wish to increment it?', $display);
+        $this->assertStringContainsString('Your application version has been incremented to "2".', $display);
+        $this->assertStringContainsString('Your application version file has successfully been committed to your VCS.', $display);
+        $this->assertStringContainsString('Do you wish to create a tag with the version "2"?', $display);
+        $this->assertStringNotContainsString('Your application has successfully been tagged with the version "2".', $display);
+    }
+
+    public function testVCSHandlerErrorIsSentToOutput(): void
+    {
+        $commandTester = $this->createCommandTester($this->validFile, __DIR__.'/Fixtures/fake-git/fail.php');
+        $commandTester->setInputs(['yes', 'yes']);
+
+        $statusCode = $commandTester->execute([]);
+        $display = $commandTester->getDisplay();
+
+        $this->assertSame(1, $statusCode);
+        $this->assertStringContainsString('Your current application version is "1", do you wish to increment it?', $display);
+        $this->assertStringContainsString('Your application version has been incremented to "2".', $display);
+        $this->assertStringContainsString('Your application version file has successfully been committed to your VCS.', $display);
+        $this->assertStringContainsString('Do you wish to create a tag with the version "2"?', $display);
+        $this->assertStringContainsString('Cannot create the tag "v2" as it already exists.', $display);
+    }
+
+    private function createCommandTester(string $file, ?string $pathToVCSExecutable = null): CommandTester
+    {
+        $vcs = null !== $pathToVCSExecutable ? new GitHandler($file, null, null, null, null, $pathToVCSExecutable) : null;
+
         return new CommandTester(
             new IncrementCommand(
                 $file,
                 new YamlFileReader($file, 'app'),
                 new YamlFileWriter($file, 'app'),
-                new IncrementingStrategy()
+                new IncrementingStrategy(),
+                $vcs
             )
         );
     }

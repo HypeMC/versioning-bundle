@@ -6,12 +6,16 @@ namespace Bizkit\VersioningBundle\Command;
 
 use Bizkit\VersioningBundle\Exception\InvalidVersionFormatException;
 use Bizkit\VersioningBundle\Exception\StorageException;
+use Bizkit\VersioningBundle\Exception\VCSException;
 use Bizkit\VersioningBundle\Reader\ReaderInterface;
 use Bizkit\VersioningBundle\Strategy\StrategyInterface;
+use Bizkit\VersioningBundle\VCS\VCSHandlerInterface;
+use Bizkit\VersioningBundle\Version;
 use Bizkit\VersioningBundle\Writer\WriterInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class IncrementCommand extends Command
@@ -38,12 +42,23 @@ final class IncrementCommand extends Command
      */
     private $strategy;
 
-    public function __construct(string $file, ReaderInterface $reader, WriterInterface $writer, StrategyInterface $strategy)
-    {
+    /**
+     * @var VCSHandlerInterface|null
+     */
+    private $vcsHandler;
+
+    public function __construct(
+        string $file,
+        ReaderInterface $reader,
+        WriterInterface $writer,
+        StrategyInterface $strategy,
+        ?VCSHandlerInterface $vcsHandler = null
+    ) {
         $this->file = $file;
         $this->reader = $reader;
         $this->writer = $writer;
         $this->strategy = $strategy;
+        $this->vcsHandler = $vcsHandler;
 
         parent::__construct();
     }
@@ -89,6 +104,29 @@ final class IncrementCommand extends Command
             $newVersion
         ));
 
+        try {
+            $this->commitAndTag($io, $newVersion);
+        } catch (VCSException $e) {
+            $io->error($e->getMessage());
+
+            return 1;
+        }
+
         return 0;
+    }
+
+    private function commitAndTag(StyleInterface $io, Version $version): void
+    {
+        if (null === $this->vcsHandler) {
+            return;
+        }
+
+        $this->vcsHandler->commit($io, $version);
+        $io->success('Your application version file has successfully been committed to your VCS.');
+
+        if ($io->confirm(sprintf('Do you wish to create a tag with the version "%s"?', $version), true)) {
+            $this->vcsHandler->tag($io, $version);
+            $io->success(sprintf('Your application has successfully been tagged with the version "%s".', $version));
+        }
     }
 }

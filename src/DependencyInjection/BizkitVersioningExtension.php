@@ -6,6 +6,7 @@ namespace Bizkit\VersioningBundle\DependencyInjection;
 
 use Bizkit\VersioningBundle\Reader\ReaderInterface;
 use Bizkit\VersioningBundle\Strategy\StrategyInterface;
+use Bizkit\VersioningBundle\VCS\VCSHandlerInterface;
 use Bizkit\VersioningBundle\Writer\WriterInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderResolver;
@@ -28,10 +29,16 @@ final class BizkitVersioningExtension extends ConfigurableExtension implements C
      */
     private $configuredStrategy;
 
+    /**
+     * @var string
+     */
+    private $configuredVCSHandler;
+
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
         $this->configuredFormat = $mergedConfig['format'];
         $this->configuredStrategy = $mergedConfig['strategy'];
+        $this->configuredVCSHandler = $mergedConfig['vcs']['handler'];
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(\dirname(__DIR__, 2).'/config'));
         $loader->load('services.xml');
@@ -54,8 +61,18 @@ final class BizkitVersioningExtension extends ConfigurableExtension implements C
             ->addTag('bizkit_versioning.strategy')
         ;
 
+        $container->registerForAutoconfiguration(VCSHandlerInterface::class)
+            ->addTag('bizkit_versioning.vcs_handler')
+        ;
+
         $container->setParameter('bizkit_versioning.parameter_prefix', $mergedConfig['parameter_prefix']);
         $container->setParameter('bizkit_versioning.file', $file);
+
+        $container->setParameter('bizkit_versioning.vcs_commit_message', $mergedConfig['vcs']['commit_message']);
+        $container->setParameter('bizkit_versioning.vcs_tag_message', $mergedConfig['vcs']['tag_message']);
+        $container->setParameter('bizkit_versioning.vcs_name', $mergedConfig['vcs']['name']);
+        $container->setParameter('bizkit_versioning.vcs_email', $mergedConfig['vcs']['email']);
+        $container->setParameter('bizkit_versioning.path_to_vcs_executable', $mergedConfig['vcs']['path_to_executable']);
     }
 
     /**
@@ -67,6 +84,10 @@ final class BizkitVersioningExtension extends ConfigurableExtension implements C
         $this->registerServiceAlias($container, 'bizkit_versioning.writer', 'format', $this->configuredFormat, WriterInterface::class);
 
         $this->registerServiceAlias($container, 'bizkit_versioning.strategy', 'alias', $this->configuredStrategy, StrategyInterface::class, true);
+
+        if (null !== $this->configuredVCSHandler) {
+            $this->registerServiceAlias($container, 'bizkit_versioning.vcs_handler', 'alias', $this->configuredVCSHandler, VCSHandlerInterface::class, true);
+        }
     }
 
     private function registerServiceAlias(

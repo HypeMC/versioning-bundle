@@ -7,12 +7,16 @@
 
 Symfony bundle which provides a way to version your application using various versioning strategies.
 
+![Showcase](showcase.gif)
+
 ## Features
 
 * Stores the application's version & release date into a compliant YAML or XML Symfony container configuration file
 * Automatically imports the file with the parameters into Symfony's container
 * Supports multiple versioning strategies & creating custom ones
 * Includes a console command for incrementing the version using the configured versioning strategy
+* The command automatically commits the version file & optionally creates a tag if a VCS handler is configured
+* Supports the Git VCS & creating custom VCS handlers
 
 ## Requirements
 
@@ -46,6 +50,32 @@ Symfony bundle which provides a way to version your application using various ve
 
         # The format used for the version file.
         format:               yaml # One of "yaml"; "xml"
+
+        # Configuration for the VCS integration,
+        # set to false to disable the integration.
+        vcs:
+
+            # The handler used for the VCS integration,
+            # set to null to disable the integration.
+            handler:              git
+
+            # The message to use for the VCS commit.
+            commit_message:       null
+
+            # The message to use for the VCS tag.
+            tag_message:          null
+
+            # The name used for the VCS commit information,
+            # set to null to use the default VCS configuration.
+            name:                 null
+
+            # The email used for the VCS commit information,
+            # set to null to use the default VCS configuration.
+            email:                null
+
+            # The path to the VCS executable,
+            # set to null for autodiscovery.
+            path_to_executable:   null
     ```
 
 1. Enable the bundle in `config/bundles.php` by adding it to the array:
@@ -85,6 +115,9 @@ To increment the version using the configured strategy run the following command
 ```sh
 bin/console bizkit:versioning:increment
 ```
+
+If you have a VCS handler configured, the command will automatically commit the version file
+& optionally create a tag with the new version.
 
 ## Versioning strategies
 
@@ -132,6 +165,60 @@ App\MyStrategy:
 
 bizkit_versioning:
     strategy: my_strategy
+```
+
+## VCS handlers
+
+The bundle comes with a handler for the [Git](https://git-scm.com/) VCS. If you wish to disable the VCS feature,
+set the `vcs` configuration option to `false`:
+
+```yaml
+bizkit_versioning:
+    vcs: false
+```
+
+### Custom VCS handlers
+
+To implement a custom VCS handler all you need to do is create a service which implements the `VCSHandlerInterface` interface.
+
+```php
+namespace App;
+
+use Bizkit\VersioningBundle\VCS\VCSHandlerInterface;
+
+class MyVCSHandler implements VCSHandlerInterface
+{
+    public function commit(StyleInterface $io, Version $version): void
+    {
+        // commit the file
+    }
+
+    public function tag(StyleInterface $io, Version $version): void
+    {
+        // create a tag
+    }
+}
+```
+
+Use the FQCN of the service in the configuration:
+
+```yaml
+bizkit_versioning:
+    vcs:
+        handler: App\MyVCSHandler
+```
+
+If you are not using Symfony's [autoconfigure](https://symfony.com/doc/4.4/service_container.html#the-autoconfigure-option)
+feature or wish to use an alias in the configuration, tag the service with the `bizkit_versioning.vcs_handler` tag.
+
+```yaml
+App\MyVCSHandler:
+    tags:
+        - { name: 'bizkit_versioning.vcs_handler', alias: 'my_vcs' }
+
+bizkit_versioning:
+    vcs:
+        handler: my_vcs
 ```
 
 ## Versioning

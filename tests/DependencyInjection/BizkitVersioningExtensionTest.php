@@ -13,7 +13,10 @@ use Bizkit\VersioningBundle\Strategy\IncrementingStrategy;
 use Bizkit\VersioningBundle\Strategy\SemVerStrategy;
 use Bizkit\VersioningBundle\Strategy\StrategyInterface;
 use Bizkit\VersioningBundle\Tests\DependencyInjection\Fixtures\CustomStrategy;
+use Bizkit\VersioningBundle\Tests\DependencyInjection\Fixtures\CustomVCSHandler;
 use Bizkit\VersioningBundle\Tests\TestCase;
+use Bizkit\VersioningBundle\VCS\GitHandler;
+use Bizkit\VersioningBundle\VCS\VCSHandlerInterface;
 use Bizkit\VersioningBundle\Writer\WriterInterface;
 use Bizkit\VersioningBundle\Writer\XmlFileWriter;
 use Bizkit\VersioningBundle\Writer\YamlFileWriter;
@@ -53,6 +56,9 @@ final class BizkitVersioningExtensionTest extends TestCase
 
         $this->assertTrue($container->has(SemVerStrategy::class));
         $this->assertTrue($container->getDefinition(SemVerStrategy::class)->hasTag('bizkit_versioning.strategy'));
+
+        $this->assertTrue($container->has(GitHandler::class));
+        $this->assertTrue($container->getDefinition(GitHandler::class)->hasTag('bizkit_versioning.vcs_handler'));
 
         $this->assertTrue($container->has(IncrementCommand::class));
         $this->assertTrue($container->getDefinition(IncrementCommand::class)->hasTag('console.command'));
@@ -189,6 +195,28 @@ final class BizkitVersioningExtensionTest extends TestCase
         $this->assertTrue($container->getDefinition(CustomStrategy::class)->hasTag('bizkit_versioning.strategy'));
     }
 
+    public function testVCSHandlersAreAutomaticallyTagged(): void
+    {
+        $config = [
+            'filepath' => __DIR__,
+        ];
+
+        $container = new ContainerBuilder();
+
+        $extension = new BizkitVersioningExtension();
+        $extension->load([$config], $container);
+
+        $container->register(CustomVCSHandler::class)
+            ->setAutoconfigured(true)
+            ->setPublic(true) // we don't want the service to be removed when we compile the container
+        ;
+
+        $container->compile();
+
+        $this->assertTrue($container->has(CustomVCSHandler::class));
+        $this->assertTrue($container->getDefinition(CustomVCSHandler::class)->hasTag('bizkit_versioning.vcs_handler'));
+    }
+
     public function testParametersAreRegistered(): void
     {
         $config = [
@@ -205,6 +233,21 @@ final class BizkitVersioningExtensionTest extends TestCase
 
         $this->assertTrue($container->hasParameter('bizkit_versioning.file'));
         $this->assertSame(__DIR__.'/version.yaml', $container->getParameter('bizkit_versioning.file'));
+
+        $this->assertTrue($container->hasParameter('bizkit_versioning.vcs_commit_message'));
+        $this->assertNull($container->getParameter('bizkit_versioning.vcs_commit_message'));
+
+        $this->assertTrue($container->hasParameter('bizkit_versioning.vcs_tag_message'));
+        $this->assertNull($container->getParameter('bizkit_versioning.vcs_tag_message'));
+
+        $this->assertTrue($container->hasParameter('bizkit_versioning.vcs_name'));
+        $this->assertNull($container->getParameter('bizkit_versioning.vcs_name'));
+
+        $this->assertTrue($container->hasParameter('bizkit_versioning.vcs_email'));
+        $this->assertNull($container->getParameter('bizkit_versioning.vcs_email'));
+
+        $this->assertTrue($container->hasParameter('bizkit_versioning.path_to_vcs_executable'));
+        $this->assertNull($container->getParameter('bizkit_versioning.path_to_vcs_executable'));
     }
 
     public function testReaderAliasIsRegistered(): void
@@ -307,6 +350,60 @@ final class BizkitVersioningExtensionTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Unknown configuration value "foo", there is no service with the tag "bizkit_versioning.strategy" and attribute "alias" with that value registered.');
+
+        $extension->process($container);
+    }
+
+    public function testVCSHandlerAliasIsRegisteredWhenConfigurationIsNotNull(): void
+    {
+        $config = [
+            'filepath' => __DIR__,
+        ];
+
+        $container = new ContainerBuilder();
+
+        $extension = new BizkitVersioningExtension();
+        $extension->load([$config], $container);
+        $extension->process($container);
+
+        $this->assertTrue($container->hasAlias(VCSHandlerInterface::class));
+        $this->assertSame(GitHandler::class, (string) $container->getAlias(VCSHandlerInterface::class));
+    }
+
+    public function testVCSHandlerAliasIsNotRegisteredWhenConfigurationIsNull(): void
+    {
+        $config = [
+            'filepath' => __DIR__,
+            'vcs' => [
+                'handler' => null,
+            ],
+        ];
+
+        $container = new ContainerBuilder();
+
+        $extension = new BizkitVersioningExtension();
+        $extension->load([$config], $container);
+        $extension->process($container);
+
+        $this->assertFalse($container->hasAlias(VCSHandlerInterface::class));
+    }
+
+    public function testExceptionIsThrownOnInvalidVCSHandler(): void
+    {
+        $config = [
+            'filepath' => __DIR__,
+            'vcs' => [
+                'handler' => 'foo',
+            ],
+        ];
+
+        $container = new ContainerBuilder();
+
+        $extension = new BizkitVersioningExtension();
+        $extension->load([$config], $container);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unknown configuration value "foo", there is no service with the tag "bizkit_versioning.vcs_handler" and attribute "alias" with that value registered.');
 
         $extension->process($container);
     }

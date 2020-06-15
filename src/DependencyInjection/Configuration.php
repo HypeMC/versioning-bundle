@@ -46,6 +46,53 @@ final class Configuration implements ConfigurationInterface
                     ->cannotBeEmpty()
                     ->defaultValue('yaml')
                 ->end()
+
+                ->arrayNode('vcs')
+                    ->info("Configuration for the VCS integration,\nset to false to disable the integration.")
+                    ->addDefaultsIfNotSet()
+                    ->beforeNormalization()
+                        ->ifTrue(static function ($v): bool {
+                            return \is_bool($v);
+                        })
+                        ->then(static function (bool $v): array {
+                            return $v ? [] : ['handler' => null];
+                        })
+                    ->end()
+                    ->children()
+                        ->scalarNode('handler')
+                            ->info("The handler used for the VCS integration,\nset to null to disable the integration.")
+                            ->defaultValue('git')
+                        ->end()
+
+                        ->scalarNode('commit_message')
+                            ->info('The message to use for the VCS commit.')
+                            ->cannotBeEmpty()
+                            ->defaultNull()
+                        ->end()
+                        ->scalarNode('tag_message')
+                            ->info('The message to use for the VCS tag.')
+                            ->cannotBeEmpty()
+                            ->defaultNull()
+                        ->end()
+
+                        ->scalarNode('name')
+                            ->info("The name used for the VCS commit information,\nset to null to use the default VCS configuration.")
+                            ->cannotBeEmpty()
+                            ->defaultNull()
+                        ->end()
+                        ->scalarNode('email')
+                            ->info("The email used for the VCS commit information,\nset to null to use the default VCS configuration.")
+                            ->cannotBeEmpty()
+                            ->defaultNull()
+                        ->end()
+
+                        ->scalarNode('path_to_executable')
+                            ->info("The path to the VCS executable,\nset to null for autodiscovery.")
+                            ->cannotBeEmpty()
+                            ->defaultNull()
+                        ->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 
