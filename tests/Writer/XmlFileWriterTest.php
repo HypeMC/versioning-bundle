@@ -15,7 +15,7 @@ use Bizkit\VersioningBundle\Writer\XmlFileWriter;
 final class XmlFileWriterTest extends TestCase
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $file;
 

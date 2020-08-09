@@ -19,12 +19,12 @@ use Symfony\Component\Yaml\Yaml;
 final class IncrementCommandTest extends TestCase
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $validFile;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $invalidFile;
 

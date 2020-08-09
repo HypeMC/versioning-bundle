@@ -30,7 +30,7 @@ final class BizkitVersioningExtension extends ConfigurableExtension implements C
     private $configuredStrategy;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $configuredVCSHandler;
 
@@ -48,14 +48,7 @@ final class BizkitVersioningExtension extends ConfigurableExtension implements C
 
         $container->fileExists($file);
 
-        $locator = new FileLocator();
-        $loaderResolver = new LoaderResolver([
-            new Loader\YamlFileLoader($container, $locator),
-            new Loader\XmlFileLoader($container, $locator),
-        ]);
-        $loaderResolver->resolve($file, $mergedConfig['format'])
-            ->import($file, null, 'not_found')
-        ;
+        $this->importVersionFile($container, $file, $mergedConfig['format']);
 
         $container->registerForAutoconfiguration(StrategyInterface::class)
             ->addTag('bizkit_versioning.strategy')
@@ -73,6 +66,24 @@ final class BizkitVersioningExtension extends ConfigurableExtension implements C
         $container->setParameter('bizkit_versioning.vcs_name', $mergedConfig['vcs']['name']);
         $container->setParameter('bizkit_versioning.vcs_email', $mergedConfig['vcs']['email']);
         $container->setParameter('bizkit_versioning.path_to_vcs_executable', $mergedConfig['vcs']['path_to_executable']);
+    }
+
+    private function importVersionFile(ContainerBuilder $container, string $file, string $format): void
+    {
+        $locator = new FileLocator();
+        $loaderResolver = new LoaderResolver([
+            new Loader\YamlFileLoader($container, $locator),
+            new Loader\XmlFileLoader($container, $locator),
+        ]);
+
+        /** @var \Symfony\Component\DependencyInjection\Loader\FileLoader|false $loader */
+        $loader = $loaderResolver->resolve($file, $format);
+
+        if (false === $loader) {
+            throw new InvalidArgumentException(sprintf('Invalid version file format "%s" provided.', $format));
+        }
+
+        $loader->import($file, null, 'not_found');
     }
 
     /**

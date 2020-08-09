@@ -16,12 +16,12 @@ use Symfony\Component\Console\Style\StyleInterface;
 final class IncrementingStrategyTest extends TestCase
 {
     /**
-     * @var IncrementingStrategy
+     * @var IncrementingStrategy|null
      */
     private $strategy;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|StyleInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|StyleInterface|null
      */
     private $io;
 

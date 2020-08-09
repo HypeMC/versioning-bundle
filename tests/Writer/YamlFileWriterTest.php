@@ -15,7 +15,7 @@ use Bizkit\VersioningBundle\Writer\YamlFileWriter;
 final class YamlFileWriterTest extends TestCase
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $file;
 

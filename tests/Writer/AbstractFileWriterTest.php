@@ -15,7 +15,7 @@ use Bizkit\VersioningBundle\Writer\AbstractFileWriter;
 final class AbstractFileWriterTest extends TestCase
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $file;
 

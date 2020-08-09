@@ -1,0 +1,9 @@
+parameters:
+    level: 5
+    paths:
+        - src
+        - tests
+    bootstrapFiles:
+        - phpstan-autoload.php
+    excludes_analyse:
+        - src/DependencyInjection/Configuration.php

@@ -62,6 +62,7 @@ install:
 script:
     - composer validate --strict --no-check-lock
     - composer lint -- --ansi --diff --dry-run
+    - composer analyse -- --ansi --no-progress
     - composer test -- -v --coverage-text --coverage-clover=coverage.xml
 
 after_success:

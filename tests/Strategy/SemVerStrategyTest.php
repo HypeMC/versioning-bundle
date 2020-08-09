@@ -16,12 +16,12 @@ use Symfony\Component\Console\Style\StyleInterface;
 final class SemVerStrategyTest extends TestCase
 {
     /**
-     * @var SemVerStrategy
+     * @var SemVerStrategy|null
      */
     private $strategy;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|StyleInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|StyleInterface|null
      */
     private $io;
 

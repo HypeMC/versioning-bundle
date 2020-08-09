@@ -18,7 +18,7 @@ final class GitHandlerTest extends TestCase
     private const VERSION_FILE = __DIR__.'/Fixtures/version.yaml';
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|StyleInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject|StyleInterface|null
      */
     private $io;
 

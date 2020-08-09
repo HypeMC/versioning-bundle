@@ -173,6 +173,37 @@ final class BizkitVersioningExtensionTest extends TestCase
         $this->assertFalse($container->hasParameter('app.release_date'));
     }
 
+    public function testExceptionIsThrownWhenInvalidVersionFileFormatIsProvided(): void
+    {
+        $mergedConfig = [
+            'filename' => 'foo',
+            'filepath' => __DIR__.'/Fixtures',
+            'format' => 'invalid-format',
+            'parameter_prefix' => 'application',
+            'strategy' => 'incrementing',
+            'vcs' => [
+                'handler' => 'git',
+                'commit_message' => null,
+                'tag_message' => null,
+                'name' => null,
+                'email' => null,
+                'path_to_executable' => null,
+            ],
+        ];
+
+        $container = new ContainerBuilder();
+
+        $extension = new BizkitVersioningExtension();
+        $refObject = new \ReflectionObject($extension);
+        $refLoadInternal = $refObject->getMethod('loadInternal');
+        $refLoadInternal->setAccessible(true);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid version file format "invalid-format" provided.');
+
+        $refLoadInternal->invoke($extension, $mergedConfig, $container);
+    }
+
     public function testStrategiesAreAutomaticallyTagged(): void
     {
         $config = [
