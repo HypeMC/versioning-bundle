@@ -1,0 +1,105 @@
+name: CI
+
+on:
+    push:
+    pull_request:
+    schedule:
+        -   cron: '0 8 * * *'
+
+jobs:
+    php-cs-fixer:
+        runs-on: ubuntu-latest
+        name: Coding Standards
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '7.4'
+                    tools: php-cs-fixer, cs2pr
+
+            -   name: PHP Coding Standards Fixer
+                run: php-cs-fixer fix --dry-run --format checkstyle | cs2pr
+
+    phpstan:
+        runs-on: ubuntu-latest
+        name: Static Analysis
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '7.4'
+                    tools: phpstan
+
+            -   name: Get composer cache directory
+                id: composer-cache
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            -   name: Cache dependencies
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.composer-cache.outputs.dir }}
+                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+                    restore-keys: ${{ runner.os }}-composer-
+
+            -   name: Install dependencies
+                run: composer install --prefer-dist
+
+            -   name: Install PHPUnit dependencies
+                run: vendor/bin/simple-phpunit install
+
+            -   name: PHPStan
+                run: phpstan analyse --no-progress
+
+    phpunit:
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                php-versions: [ '7.2', '7.3', '7.4' ]
+                symfony-versions: [ '4.4', '5.0', '5.1', '5.2' ]
+                composer-prefer: [ '', '--prefer-stable --prefer-lowest' ]
+        env:
+            SYMFONY_REQUIRE: ${{ matrix.symfony-versions }}.*
+        name: PHP ${{ matrix.php-versions }} and Symfony ${{ matrix.symfony-versions }} Test
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php-versions }}
+                    ini-values: zend.exception_ignore_args=false
+                    tools: flex
+
+            -   name: Get composer cache directory
+                id: composer-cache
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            -   name: Cache dependencies
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.composer-cache.outputs.dir }}
+                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}-${{ matrix.composer-prefer }}-
+                    restore-keys: ${{ runner.os }}-composer-${{ matrix.composer-prefer }}-
+
+            -   name: Install dependencies
+                run: composer update --prefer-dist ${{ matrix.composer-prefer }}
+
+            -   name: Install PHPUnit dependencies
+                run: vendor/bin/simple-phpunit install
+
+            -   name: Run tests
+                run: vendor/bin/simple-phpunit -v --coverage-text --coverage-clover=coverage.xml
+
+            -   name: Upload coverage to Codecov
+                if: ${{ success() }}
+                uses: codecov/codecov-action@v1
+                with:
+                    file: coverage.xml
