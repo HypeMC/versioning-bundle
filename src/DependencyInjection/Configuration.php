@@ -13,9 +13,8 @@ final class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('bizkit_versioning');
 
-        $rootNode = $treeBuilder->getRootNode();
-
-        $rootNode
+        $treeBuilder
+            ->getRootNode()
             ->children()
                 ->scalarNode('parameter_prefix')
                     ->info('The prefix added to the version parameters.')
