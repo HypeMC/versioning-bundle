@@ -11,7 +11,7 @@ switch ($command = implode(' ', array_slice($argv, 1))) {
         echo 'diff exists';
         exit(1);
     case sprintf('commit -m Commit msg 1.2.3 %s', $file):
-        fwrite(STDERR, 'commit creation failed');
+        fwrite(\STDERR, 'commit creation failed');
         exit(1);
     default:
         throw new InvalidArgumentException(sprintf('Invalid command "%s".', $command));
