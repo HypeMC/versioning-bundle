@@ -5,5 +5,8 @@ parameters:
         - tests
     bootstrapFiles:
         - phpstan-autoload.php
-    excludes_analyse:
-        - src/DependencyInjection/Configuration.php
+    ignoreErrors:
+        -
+            message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition\:\:children\(\)\.$#'
+            count: 1
+            path: src/DependencyInjection/Configuration.php
