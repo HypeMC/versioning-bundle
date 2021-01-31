@@ -67,6 +67,7 @@ jobs:
                 composer-prefer: [ '', '--prefer-stable --prefer-lowest' ]
         env:
             SYMFONY_REQUIRE: ${{ matrix.symfony-versions }}.*
+            SYMFONY_PHPUNIT_VERSION: ${{ matrix.php-versions >= 7.4 && '9.5' || '8.5' }}
         name: PHP ${{ matrix.php-versions }} and Symfony ${{ matrix.symfony-versions }} Test
         steps:
             -   name: Checkout
