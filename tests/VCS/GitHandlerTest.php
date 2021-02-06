@@ -34,44 +34,64 @@ final class GitHandlerTest extends TestCase
 
     public function testDefaultMessagesAreUsed(): void
     {
-        $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/dummy.php', null, null);
+        $version = new Version('1.2.3');
 
-        $refObject = new \ReflectionObject($handler);
+        $this->io->expects($this->exactly(9))->method('text')->withConsecutive(
+            [sprintf('Staging the file "%s".', self::VERSION_FILE)],
+            ['stage successful'],
+            [sprintf('Checking if the file "%s" has any changes to commit.', self::VERSION_FILE)],
+            ['diff exists'],
+            [sprintf('Committing the file "%s".', self::VERSION_FILE)],
+            ['commit successful'],
+            [sprintf('Checking if the tag "v%s" already exists.', $version)],
+            [sprintf('Creating a new tag "v%s".', $version)],
+            ['tag created']
+        );
 
-        $refCommitMessage = $refObject->getProperty('commitMessage');
-        $refCommitMessage->setAccessible(true);
+        $this->io->expects($this->once())->method('error')->withConsecutive(
+            ['tag does not exist']
+        );
 
-        $refTagMessage = $refObject->getProperty('tagMessage');
-        $refTagMessage->setAccessible(true);
+        $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/default-settings.php', null, null);
 
-        $this->assertSame('Update application version to %s', $refCommitMessage->getValue($handler));
-        $this->assertSame('Update application version to %s', $refTagMessage->getValue($handler));
+        $handler->commit($this->io, $version);
+        $handler->tag($this->io, $version);
     }
 
     public function testNameAndEmailAreNotUsedIfNull(): void
     {
-        $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/dummy.php');
+        $this->io->expects($this->exactly(6))->method('text')->withConsecutive(
+            [sprintf('Staging the file "%s".', self::VERSION_FILE)],
+            ['stage successful'],
+            [sprintf('Checking if the file "%s" has any changes to commit.', self::VERSION_FILE)],
+            ['diff exists'],
+            [sprintf('Committing the file "%s".', self::VERSION_FILE)],
+            ['commit successful']
+        );
 
-        $refProperty = (new \ReflectionObject($handler))->getProperty('baseCommand');
-        $refProperty->setAccessible(true);
+        $this->io->expects($this->never())->method('error');
 
-        $this->assertSame([__DIR__.'/Fixtures/fake-git/dummy.php'], $refProperty->getValue($handler));
+        $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/default-settings.php', null, null);
+
+        $handler->commit($this->io, new Version('1.2.3'));
     }
 
     public function testNameAndEmailAreUsedIfExist(): void
     {
-        $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/dummy.php', null, null, 'Some Name', 'test@email.com');
+        $this->io->expects($this->exactly(6))->method('text')->withConsecutive(
+            [sprintf('Staging the file "%s".', self::VERSION_FILE)],
+            ['stage successful'],
+            [sprintf('Checking if the file "%s" has any changes to commit.', self::VERSION_FILE)],
+            ['diff exists'],
+            [sprintf('Committing the file "%s".', self::VERSION_FILE)],
+            ['commit successful']
+        );
 
-        $refProperty = (new \ReflectionObject($handler))->getProperty('baseCommand');
-        $refProperty->setAccessible(true);
+        $this->io->expects($this->never())->method('error');
 
-        $this->assertSame([
-            __DIR__.'/Fixtures/fake-git/dummy.php',
-            '-c',
-            'user.name="Some Name"',
-            '-c',
-            'user.email="test@email.com"',
-        ], $refProperty->getValue($handler));
+        $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/custom-username-and-email.php', null, null, 'Some Name', 'test@email.com');
+
+        $handler->commit($this->io, new Version('1.2.3'));
     }
 
     public function testCommitIsCreatedSuccessfully(): void
@@ -161,7 +181,7 @@ final class GitHandlerTest extends TestCase
         );
 
         $this->io->expects($this->once())->method('error')->withConsecutive(
-            ['tag does not exists']
+            ['tag does not exist']
         );
 
         $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/tag-created-successfully.php');
@@ -197,7 +217,7 @@ final class GitHandlerTest extends TestCase
         );
 
         $this->io->expects($this->exactly(2))->method('error')->withConsecutive(
-            ['tag does not exists'],
+            ['tag does not exist'],
             ['tag creation failed']
         );
 

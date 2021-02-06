@@ -27,10 +27,7 @@ final class VersionTest extends TestCase
     {
         $version = new Version('1.2.3');
 
-        $refProperty = (new \ReflectionObject($version))->getProperty('releaseDate');
-        $refProperty->setAccessible(true);
-
-        $this->assertInstanceOf(\DateTimeInterface::class, $refProperty->getValue($version));
+        $this->assertInstanceOf(\DateTimeInterface::class, $version->getReleaseDate());
     }
 
     public function testVersionNumberIsReturnedWhenCastToString(): void

@@ -14,7 +14,7 @@ switch ($command = implode(' ', array_slice($argv, 1))) {
         echo 'commit successful';
         exit(0);
     case 'rev-parse --quiet --verify refs/tags/v2':
-        fwrite(\STDERR, 'tag does not exists');
+        fwrite(\STDERR, 'tag does not exist');
         exit(1);
     case 'tag -a v2 -m Update application version to 2':
         echo 'tag created';
