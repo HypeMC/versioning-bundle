@@ -1,0 +1,137 @@
+[
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testDefaultServicesAreRegistered",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testPlaceholderValuesAreResolvedForFilepath",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testVersionFileIsAddedAsResourceIfExists",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testVersionFileIsAddedAsResourceIfDoesNotExist",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testVersionParametersAreLoadedFromYamlVersionFile",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testVersionParametersAreLoadedFromXmlVersionFile",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 8
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testExceptionIsNotThrownWhenVersionFileDoesNotExist",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testExceptionIsThrownWhenInvalidVersionFileFormatIsProvided",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testStrategiesAreAutomaticallyTagged",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testVCSHandlersAreAutomaticallyTagged",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testParametersAreRegistered",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testReaderAliasIsRegistered",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testExceptionIsThrownOnInvalidReaderFormat",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testWriterAliasIsRegistered",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testExceptionIsThrownOnInvalidWriterFormat",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testStrategyAliasIsRegistered",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testExceptionIsThrownOnInvalidStrategy",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testVCSHandlerAliasIsRegisteredWhenConfigurationIsNotNull",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testVCSHandlerAliasIsNotRegisteredWhenConfigurationIsNull",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\DependencyInjection\\BizkitVersioningExtensionTest::testExceptionIsThrownOnInvalidVCSHandler",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 4
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\Reader\\XmlFileReaderTest::testValidData",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 2
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\Reader\\XmlFileReaderTest::testExceptionIsThrownOnInvalidPrefix",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 2
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\Reader\\XmlFileReaderTest::testExceptionIsThrownIfDataIsNotValidXml",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 2
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\Reader\\XmlFileReaderTest::testExceptionIsThrownIfParametersIsNotADOMElement",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 2
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\Reader\\XmlFileReaderTest::testExceptionIsThrownIfParameterIsNotArray",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 2
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\Reader\\XmlFileReaderTest::testExceptionIsThrownOnInvalidStructure",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 2
+    },
+    {
+        "location": "Bizkit\\VersioningBundle\\Tests\\Reader\\XmlFileReaderTest::testExceptionIsThrownOnInvalidDate",
+        "message": "Function libxml_disable_entity_loader() is deprecated",
+        "count": 2
+    }
+]
