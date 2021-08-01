@@ -21,6 +21,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class IncrementCommand extends Command
 {
     protected static $defaultName = 'bizkit:versioning:increment';
+    protected static $defaultDescription = 'Increments the version using the configured versioning strategy.';
 
     /**
      * @var string
@@ -65,7 +66,7 @@ final class IncrementCommand extends Command
 
     protected function configure(): void
     {
-        $this->setDescription('Increments the version using the configured versioning strategy.');
+        $this->setDescription(self::$defaultDescription);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
