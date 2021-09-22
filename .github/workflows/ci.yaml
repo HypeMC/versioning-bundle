@@ -37,19 +37,10 @@ jobs:
                     php-version: '7.4'
                     tools: phpstan
 
-            -   name: Get composer cache directory
-                id: composer-cache
-                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-            -   name: Cache dependencies
-                uses: actions/cache@v2
-                with:
-                    path: ${{ steps.composer-cache.outputs.dir }}
-                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-                    restore-keys: ${{ runner.os }}-composer-
-
             -   name: Install dependencies
-                run: composer install --prefer-dist
+                uses: ramsey/composer-install@v1
+                with:
+                    composer-options: '--prefer-dist'
 
             -   name: Install PHPUnit dependencies
                 run: vendor/bin/simple-phpunit install
@@ -62,13 +53,13 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php-versions: [ '7.2', '7.3', '7.4', '8.0' ]
-                symfony-versions: [ '4.4', '5.2', '5.3' ]
-                composer-prefer: [ '', '--prefer-stable --prefer-lowest' ]
+                php: [ '7.2', '7.3', '7.4', '8.0' ]
+                symfony: [ '4.4', '5.2', '5.3' ]
+                dependencies: [ 'highest', 'lowest' ]
         env:
-            SYMFONY_REQUIRE: ${{ matrix.symfony-versions }}.*
-            SYMFONY_PHPUNIT_VERSION: ${{ matrix.php-versions >= 7.4 && '9.5' || '8.5' }}
-        name: PHP ${{ matrix.php-versions }} and Symfony ${{ matrix.symfony-versions }} Test
+            SYMFONY_REQUIRE: ${{ matrix.symfony }}.*
+            SYMFONY_PHPUNIT_VERSION: ${{ matrix.php >= 7.4 && '9.5' || '8.5' }}
+        name: PHP ${{ matrix.php }} & Symfony ${{ matrix.symfony }}${{ matrix.dependencies == 'lowest' && ' (lowest)' || '' }} Test
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2
@@ -76,23 +67,15 @@ jobs:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: ${{ matrix.php-versions }}
+                    php-version: ${{ matrix.php }}
                     ini-values: zend.exception_ignore_args=false
                     tools: flex
 
-            -   name: Get composer cache directory
-                id: composer-cache
-                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-            -   name: Cache dependencies
-                uses: actions/cache@v2
-                with:
-                    path: ${{ steps.composer-cache.outputs.dir }}
-                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}-${{ matrix.composer-prefer }}-
-                    restore-keys: ${{ runner.os }}-composer-${{ matrix.composer-prefer }}-
-
             -   name: Install dependencies
-                run: composer update --prefer-dist ${{ matrix.composer-prefer }}
+                uses: ramsey/composer-install@v1
+                with:
+                    composer-options: '--prefer-dist'
+                    dependency-versions: ${{ matrix.dependencies }}
 
             -   name: Install PHPUnit dependencies
                 run: vendor/bin/simple-phpunit install
@@ -105,3 +88,4 @@ jobs:
                 uses: codecov/codecov-action@v1
                 with:
                     file: coverage.xml
+                    flags: ${{ matrix.php }}
