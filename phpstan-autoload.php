@@ -18,13 +18,13 @@ $getEnvVar = static function ($name, $default = false) {
 
         $phpunitConfig = false;
         if ($phpunitConfigFilename) {
-            $phpunitConfig = new DomDocument();
+            $phpunitConfig = new DOMDocument();
             $phpunitConfig->load($phpunitConfigFilename);
         }
     }
 
     if (false !== $phpunitConfig) {
-        $var = new DOMXpath($phpunitConfig);
+        $var = new DOMXPath($phpunitConfig);
         foreach ($var->query('//php/server[@name="'.$name.'"]') as $var) {
             return $var->getAttribute('value');
         }
