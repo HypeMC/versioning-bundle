@@ -13,7 +13,7 @@ jobs:
         name: Coding Standards
         steps:
             -   name: Checkout
-                uses: actions/checkout@v2
+                uses: actions/checkout@v3
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -29,7 +29,7 @@ jobs:
         name: Static Analysis
         steps:
             -   name: Checkout
-                uses: actions/checkout@v2
+                uses: actions/checkout@v3
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -38,7 +38,7 @@ jobs:
                     tools: phpstan
 
             -   name: Install dependencies
-                uses: ramsey/composer-install@v1
+                uses: ramsey/composer-install@v2
                 with:
                     composer-options: '--prefer-dist'
 
@@ -81,7 +81,7 @@ jobs:
         name: PHP ${{ matrix.php }} & Symfony ${{ matrix.symfony }}${{ matrix.dependencies == 'lowest' && ' (lowest)' || '' }} Test
         steps:
             -   name: Checkout
-                uses: actions/checkout@v2
+                uses: actions/checkout@v3
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -91,7 +91,7 @@ jobs:
                     tools: flex
 
             -   name: Install dependencies
-                uses: ramsey/composer-install@v1
+                uses: ramsey/composer-install@v2
                 with:
                     composer-options: '--prefer-dist'
                     dependency-versions: ${{ matrix.dependencies }}
@@ -104,7 +104,7 @@ jobs:
 
             -   name: Upload coverage to Codecov
                 if: ${{ success() }}
-                uses: codecov/codecov-action@v1
+                uses: codecov/codecov-action@v3
                 with:
                     file: coverage.xml
                     flags: ${{ matrix.php }}
