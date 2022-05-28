@@ -12,16 +12,21 @@ use Bizkit\VersioningBundle\Strategy\StrategyInterface;
 use Bizkit\VersioningBundle\VCS\VCSHandlerInterface;
 use Bizkit\VersioningBundle\Version;
 use Bizkit\VersioningBundle\Writer\WriterInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(self::DEFAULT_NAME, self::DEFAULT_DESCRIPTION)]
 final class IncrementCommand extends Command
 {
-    protected static $defaultName = 'bizkit:versioning:increment';
-    protected static $defaultDescription = 'Increments the version using the configured versioning strategy.';
+    public const DEFAULT_NAME = 'bizkit:versioning:increment';
+    public const DEFAULT_DESCRIPTION = 'Increments the version using the configured versioning strategy.';
+
+    protected static $defaultName = self::DEFAULT_NAME;
+    protected static $defaultDescription = self::DEFAULT_DESCRIPTION;
 
     /**
      * @var string
@@ -66,7 +71,7 @@ final class IncrementCommand extends Command
 
     protected function configure(): void
     {
-        $this->setDescription(self::$defaultDescription);
+        $this->setDescription(self::DEFAULT_DESCRIPTION);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
