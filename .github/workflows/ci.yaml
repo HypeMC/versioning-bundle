@@ -82,6 +82,12 @@ jobs:
                     -   php: '8.1'
                         symfony: '6.1'
                         dependencies: 'lowest'
+                    -   php: '8.1'
+                        symfony: '6.2'
+                        dependencies: 'highest'
+                    -   php: '8.1'
+                        symfony: '6.2'
+                        dependencies: 'lowest'
         env:
             SYMFONY_REQUIRE: ${{ matrix.symfony }}.*
             SYMFONY_PHPUNIT_VERSION: ${{ matrix.php >= 7.4 && '9.5' || '8.5' }}
