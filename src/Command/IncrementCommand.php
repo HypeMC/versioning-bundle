@@ -22,8 +22,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[AsCommand(self::DEFAULT_NAME, self::DEFAULT_DESCRIPTION)]
 final class IncrementCommand extends Command
 {
-    public const DEFAULT_NAME = 'bizkit:versioning:increment';
-    public const DEFAULT_DESCRIPTION = 'Increments the version using the configured versioning strategy.';
+    private const DEFAULT_NAME = 'bizkit:versioning:increment';
+    private const DEFAULT_DESCRIPTION = 'Increments the version using the configured versioning strategy.';
 
     protected static $defaultName = self::DEFAULT_NAME;
     protected static $defaultDescription = self::DEFAULT_DESCRIPTION;
