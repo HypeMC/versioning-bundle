@@ -438,4 +438,27 @@ final class BizkitVersioningExtensionTest extends TestCase
 
         $extension->process($container);
     }
+
+    /**
+     * @dataProvider serviceIds
+     */
+    public function testServiceCanBeInstantiated(string $serviceId): void
+    {
+        $container = new ContainerBuilder();
+        $container->setParameter('kernel.project_dir', sys_get_temp_dir());
+        $container->registerExtension($versioningExtension = new BizkitversioningExtension());
+
+        $versioningExtension->load([], $container);
+
+        $container->getDefinition($serviceId)->setPublic(true);
+        $container->compile();
+
+        $this->assertInstanceOf($serviceId, $container->get($serviceId));
+    }
+
+    public function serviceIds(): iterable
+    {
+        yield [GitHandler::class];
+        yield [IncrementCommand::class];
+    }
 }
