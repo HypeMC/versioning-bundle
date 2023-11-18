@@ -108,7 +108,10 @@ final class BizkitVersioningExtensionTest extends TestCase
         $extension->load([$config], $container);
 
         $resources = array_map('strval', $container->getResources());
-        $this->assertContains(__DIR__.'/Fixtures/foo.yaml', $resources);
+        $this->assertThat($resources, $this->logicalOr(
+            $this->containsIdentical($file = __DIR__.'/Fixtures/foo.yaml'),
+            $this->containsIdentical('existence.'.$file)
+        ));
     }
 
     public function testVersionParametersAreLoadedFromYamlVersionFile(): void
