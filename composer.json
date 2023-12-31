@@ -28,7 +28,7 @@
         "symfony/yaml": "^4.4 || ^5.2 || ^6.0"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^6.1"
+        "symfony/phpunit-bridge": "^6.4.1"
     },
     "autoload": {
         "psr-4": {
