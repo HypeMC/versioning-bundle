@@ -11,7 +11,7 @@ Symfony bundle which provides a way to version your application using various ve
 
 ## Features
 
-- Stores the application's version & release date into a compliant YAML or XML Symfony container configuration file
+- Stores the application's version & release date into a compliant YAML Symfony container configuration file
 - Automatically imports the file with the parameters into Symfony's container
 - Supports multiple versioning strategies & creating custom ones
 - Includes a console command for incrementing the version using the configured versioning strategy
@@ -21,7 +21,7 @@ Symfony bundle which provides a way to version your application using various ve
 ## Requirements
 
 - [PHP 8.1](http://php.net/releases/8_1_0.php) or higher
-- [Symfony 4.4](https://symfony.com/roadmap/4.4) or [Symfony 5.2](https://symfony.com/roadmap/5.2) or higher
+- [Symfony 6.4](https://symfony.com/roadmap/6.4) or [Symfony 7.4](https://symfony.com/roadmap/7.4) or higher
 
 ## Installation
 
@@ -49,7 +49,7 @@ Symfony bundle which provides a way to version your application using various ve
         filepath:             '%kernel.project_dir%/config'
 
         # The format used for the version file.
-        format:               yaml # One of "yaml"; "xml"
+        format:               yaml # One of "yaml"
 
         # Configuration for the VCS integration,
         # set to false to disable the integration.

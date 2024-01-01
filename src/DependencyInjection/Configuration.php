@@ -43,7 +43,7 @@ final class Configuration implements ConfigurationInterface
 
                 ->enumNode('format')
                     ->info('The format used for the version file.')
-                    ->values(['yaml', 'xml'])
+                    ->values(['yaml'])
                     ->cannotBeEmpty()
                     ->defaultValue('yaml')
                 ->end()
