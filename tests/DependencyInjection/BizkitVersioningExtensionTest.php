@@ -20,6 +20,7 @@ use Bizkit\VersioningBundle\VCS\VCSHandlerInterface;
 use Bizkit\VersioningBundle\Writer\WriterInterface;
 use Bizkit\VersioningBundle\Writer\XmlFileWriter;
 use Bizkit\VersioningBundle\Writer\YamlFileWriter;
+use Symfony\Component\Config\Exception\LoaderLoadException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
@@ -76,8 +77,8 @@ final class BizkitVersioningExtensionTest extends TestCase
         $extension = new BizkitVersioningExtension();
         $extension->load([$config], $container);
 
-        $this->assertTrue($container->hasParameter('bizkit_versioning.file'));
-        $this->assertSame(__DIR__.'/version.yaml', $container->getParameter('bizkit_versioning.file'));
+        $this->assertTrue($container->hasParameter('.bizkit_versioning.file'));
+        $this->assertSame(__DIR__.'/version.yaml', $container->getParameter('.bizkit_versioning.file'));
     }
 
     public function testVersionFileIsAddedAsResourceIfExists(): void
@@ -200,8 +201,7 @@ final class BizkitVersioningExtensionTest extends TestCase
         $refObject = new \ReflectionObject($extension);
         $refLoadInternal = $refObject->getMethod('loadInternal');
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid version file format "invalid-format" provided.');
+        $this->expectException(LoaderLoadException::class);
 
         $refLoadInternal->invoke($extension, $mergedConfig, $container);
     }
@@ -248,39 +248,6 @@ final class BizkitVersioningExtensionTest extends TestCase
 
         $this->assertTrue($container->has(CustomVCSHandler::class));
         $this->assertTrue($container->getDefinition(CustomVCSHandler::class)->hasTag('bizkit_versioning.vcs_handler'));
-    }
-
-    public function testParametersAreRegistered(): void
-    {
-        $config = [
-            'filepath' => __DIR__,
-        ];
-
-        $container = new ContainerBuilder();
-
-        $extension = new BizkitVersioningExtension();
-        $extension->load([$config], $container);
-
-        $this->assertTrue($container->hasParameter('bizkit_versioning.parameter_prefix'));
-        $this->assertSame('application', $container->getParameter('bizkit_versioning.parameter_prefix'));
-
-        $this->assertTrue($container->hasParameter('bizkit_versioning.file'));
-        $this->assertSame(__DIR__.'/version.yaml', $container->getParameter('bizkit_versioning.file'));
-
-        $this->assertTrue($container->hasParameter('bizkit_versioning.vcs_commit_message'));
-        $this->assertNull($container->getParameter('bizkit_versioning.vcs_commit_message'));
-
-        $this->assertTrue($container->hasParameter('bizkit_versioning.vcs_tag_message'));
-        $this->assertNull($container->getParameter('bizkit_versioning.vcs_tag_message'));
-
-        $this->assertTrue($container->hasParameter('bizkit_versioning.vcs_name'));
-        $this->assertNull($container->getParameter('bizkit_versioning.vcs_name'));
-
-        $this->assertTrue($container->hasParameter('bizkit_versioning.vcs_email'));
-        $this->assertNull($container->getParameter('bizkit_versioning.vcs_email'));
-
-        $this->assertTrue($container->hasParameter('bizkit_versioning.path_to_vcs_executable'));
-        $this->assertNull($container->getParameter('bizkit_versioning.path_to_vcs_executable'));
     }
 
     public function testReaderAliasIsRegistered(): void

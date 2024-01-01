@@ -19,15 +19,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand(self::DEFAULT_NAME, self::DEFAULT_DESCRIPTION)]
+#[AsCommand(
+    'bizkit:versioning:increment',
+    'Increments the version using the configured versioning strategy.',
+)]
 final class IncrementCommand extends Command
 {
-    private const DEFAULT_NAME = 'bizkit:versioning:increment';
-    private const DEFAULT_DESCRIPTION = 'Increments the version using the configured versioning strategy.';
-
-    protected static $defaultName = self::DEFAULT_NAME;
-    protected static $defaultDescription = self::DEFAULT_DESCRIPTION;
-
     public function __construct(
         private readonly string $file,
         private readonly ReaderInterface $reader,
@@ -36,11 +33,6 @@ final class IncrementCommand extends Command
         private readonly ?VCSHandlerInterface $vcsHandler = null,
     ) {
         parent::__construct();
-    }
-
-    protected function configure(): void
-    {
-        $this->setDescription(self::DEFAULT_DESCRIPTION);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -54,7 +46,7 @@ final class IncrementCommand extends Command
             : sprintf('Your current application version is "%s", do you wish to increment it?', $version);
 
         if (!$io->confirm($confirmationQuestion, true)) {
-            return 0;
+            return self::SUCCESS;
         }
 
         try {
@@ -62,7 +54,7 @@ final class IncrementCommand extends Command
         } catch (InvalidVersionFormatException $e) {
             $io->error(sprintf('Failed incrementing to a new version: %s', $e->getMessage()));
 
-            return 1;
+            return self::FAILURE;
         }
 
         try {
@@ -70,7 +62,7 @@ final class IncrementCommand extends Command
         } catch (StorageException $e) {
             $io->error(sprintf('Failed storing new version "%s": %s', $newVersion, $e->getMessage()));
 
-            return 1;
+            return self::FAILURE;
         }
 
         $io->success(sprintf(
@@ -84,10 +76,10 @@ final class IncrementCommand extends Command
         } catch (VCSException $e) {
             $io->error($e->getMessage());
 
-            return 1;
+            return self::FAILURE;
         }
 
-        return 0;
+        return self::SUCCESS;
     }
 
     private function commitAndTag(StyleInterface $io, Version $version): void

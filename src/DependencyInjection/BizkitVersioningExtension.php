@@ -29,8 +29,8 @@ final class BizkitVersioningExtension extends ConfigurableExtension implements C
         $this->configuredStrategy = $mergedConfig['strategy'];
         $this->configuredVCSHandler = $mergedConfig['vcs']['handler'];
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(\dirname(__DIR__, 2).'/config'));
-        $loader->load('services.xml');
+        $loader = new Loader\PhpFileLoader($container, new FileLocator(\dirname(__DIR__, 2).'/config'));
+        $loader->load('services.php');
 
         $filepath = $container->getParameterBag()->resolveValue($mergedConfig['filepath']);
         $file = $filepath.\DIRECTORY_SEPARATOR.$mergedConfig['filename'].'.'.$mergedConfig['format'];
@@ -47,32 +47,24 @@ final class BizkitVersioningExtension extends ConfigurableExtension implements C
             ->addTag('bizkit_versioning.vcs_handler')
         ;
 
-        $container->setParameter('bizkit_versioning.parameter_prefix', $mergedConfig['parameter_prefix']);
-        $container->setParameter('bizkit_versioning.file', $file);
+        $container->setParameter('.bizkit_versioning.parameter_prefix', $mergedConfig['parameter_prefix']);
+        $container->setParameter('.bizkit_versioning.file', $file);
 
-        $container->setParameter('bizkit_versioning.vcs_commit_message', $mergedConfig['vcs']['commit_message']);
-        $container->setParameter('bizkit_versioning.vcs_tag_message', $mergedConfig['vcs']['tag_message']);
-        $container->setParameter('bizkit_versioning.vcs_name', $mergedConfig['vcs']['name']);
-        $container->setParameter('bizkit_versioning.vcs_email', $mergedConfig['vcs']['email']);
-        $container->setParameter('bizkit_versioning.path_to_vcs_executable', $mergedConfig['vcs']['path_to_executable']);
+        $container->setParameter('.bizkit_versioning.vcs_commit_message', $mergedConfig['vcs']['commit_message']);
+        $container->setParameter('.bizkit_versioning.vcs_tag_message', $mergedConfig['vcs']['tag_message']);
+        $container->setParameter('.bizkit_versioning.vcs_name', $mergedConfig['vcs']['name']);
+        $container->setParameter('.bizkit_versioning.vcs_email', $mergedConfig['vcs']['email']);
+        $container->setParameter('.bizkit_versioning.path_to_vcs_executable', $mergedConfig['vcs']['path_to_executable']);
     }
 
     private function importVersionFile(ContainerBuilder $container, string $file, string $format): void
     {
         $locator = new FileLocator();
-        $loaderResolver = new LoaderResolver([
-            new Loader\YamlFileLoader($container, $locator),
-            new Loader\XmlFileLoader($container, $locator),
-        ]);
+        $loaderResolver = new LoaderResolver();
+        $loaderResolver->addLoader($loader = new Loader\YamlFileLoader($container, $locator));
+        $loaderResolver->addLoader(new Loader\XmlFileLoader($container, $locator));
 
-        /** @var Loader\FileLoader|false $loader */
-        $loader = $loaderResolver->resolve($file, $format);
-
-        if (false === $loader) {
-            throw new InvalidArgumentException(sprintf('Invalid version file format "%s" provided.', $format));
-        }
-
-        $loader->import($file, null, 'not_found');
+        $loader->import($file, $format, 'not_found');
     }
 
     /**
