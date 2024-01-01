@@ -6,16 +6,15 @@ namespace Bizkit\VersioningBundle\Exception;
 
 class InvalidDataException extends \RuntimeException
 {
-    private $data;
-
-    public function __construct(string $message, $data, ?\Throwable $previous = null)
-    {
-        $this->data = $data;
-
+    public function __construct(
+        string $message,
+        private readonly mixed $data,
+        ?\Throwable $previous = null,
+    ) {
         parent::__construct($message, 0, $previous);
     }
 
-    public function getData()
+    public function getData(): mixed
     {
         return $this->data;
     }

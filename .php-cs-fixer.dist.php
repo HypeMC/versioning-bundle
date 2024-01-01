@@ -33,6 +33,9 @@ return (new PhpCsFixer\Config())
         'pow_to_exponentiation' => true,
         'single_line_throw' => false,
         'ternary_to_null_coalescing' => true,
+        'trailing_comma_in_multiline' => [
+            'elements' => ['arguments', 'arrays', 'match', 'parameters'],
+        ],
     ])
     ->setRiskyAllowed(true)
     ->setFinder($finder)

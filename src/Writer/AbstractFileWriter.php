@@ -8,20 +8,10 @@ use Bizkit\VersioningBundle\Exception\StorageException;
 
 abstract class AbstractFileWriter implements WriterInterface
 {
-    /**
-     * @var string
-     */
-    protected $file;
-
-    /**
-     * @var string
-     */
-    protected $prefix;
-
-    final public function __construct(string $file, string $prefix)
-    {
-        $this->file = $file;
-        $this->prefix = $prefix;
+    final public function __construct(
+        protected readonly string $file,
+        protected readonly string $prefix,
+    ) {
     }
 
     protected function writeFileContents(string $contents): void

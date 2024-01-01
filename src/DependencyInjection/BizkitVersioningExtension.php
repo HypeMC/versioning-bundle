@@ -19,20 +19,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 final class BizkitVersioningExtension extends ConfigurableExtension implements CompilerPassInterface
 {
-    /**
-     * @var string
-     */
-    private $configuredFormat;
-
-    /**
-     * @var string
-     */
-    private $configuredStrategy;
-
-    /**
-     * @var string|null
-     */
-    private $configuredVCSHandler;
+    private string $configuredFormat;
+    private string $configuredStrategy;
+    private ?string $configuredVCSHandler;
 
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
@@ -107,7 +96,7 @@ final class BizkitVersioningExtension extends ConfigurableExtension implements C
         string $attribute,
         string $configuredValue,
         string $alias,
-        bool $fallbackToServiceId = false
+        bool $fallbackToServiceId = false,
     ): void {
         $taggedServices = $container->findTaggedServiceIds($tag);
 
@@ -125,7 +114,7 @@ final class BizkitVersioningExtension extends ConfigurableExtension implements C
             'Unknown configuration value "%s", there is no service with the tag "%s" and attribute "%s" with that value registered.',
             $configuredValue,
             $tag,
-            $attribute
+            $attribute,
         ));
     }
 }

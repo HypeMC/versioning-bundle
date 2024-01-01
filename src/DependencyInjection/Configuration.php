@@ -50,12 +50,8 @@ final class Configuration implements ConfigurationInterface
                     ->info("Configuration for the VCS integration,\nset to false to disable the integration.")
                     ->addDefaultsIfNotSet()
                     ->beforeNormalization()
-                        ->ifTrue(static function ($v): bool {
-                            return \is_bool($v);
-                        })
-                        ->then(static function (bool $v): array {
-                            return $v ? [] : ['handler' => null];
-                        })
+                        ->ifTrue(static fn ($v): bool => \is_bool($v))
+                        ->then(static fn (bool $v): array => $v ? [] : ['handler' => null])
                     ->end()
                     ->children()
                         ->scalarNode('handler')

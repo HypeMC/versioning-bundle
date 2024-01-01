@@ -6,15 +6,11 @@ namespace Bizkit\VersioningBundle\Exception;
 
 class StorageException extends \RuntimeException
 {
-    /**
-     * @var string
-     */
-    private $path;
-
-    public function __construct(string $message, string $path, ?\Throwable $previous = null)
-    {
-        $this->path = $path;
-
+    public function __construct(
+        string $message,
+        private readonly string $path,
+        ?\Throwable $previous = null,
+    ) {
         parent::__construct($message, 0, $previous);
     }
 

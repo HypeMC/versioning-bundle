@@ -14,10 +14,7 @@ use Bizkit\VersioningBundle\Writer\XmlFileWriter;
  */
 final class XmlFileWriterTest extends TestCase
 {
-    /**
-     * @var string|null
-     */
-    private $file;
+    private string $file;
 
     protected function setUp(): void
     {
@@ -27,7 +24,7 @@ final class XmlFileWriterTest extends TestCase
     protected function tearDown(): void
     {
         unlink($this->file);
-        $this->file = null;
+        unset($this->file);
     }
 
     /**

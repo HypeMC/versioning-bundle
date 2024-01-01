@@ -8,15 +8,10 @@ use Bizkit\VersioningBundle\Version;
 
 class InvalidVersionFormatException extends \InvalidArgumentException
 {
-    /**
-     * @var Version
-     */
-    private $version;
-
-    public function __construct(Version $version, ?\Throwable $previous = null)
-    {
-        $this->version = $version;
-
+    public function __construct(
+        private readonly Version $version,
+        ?\Throwable $previous = null,
+    ) {
         parent::__construct(sprintf('Invalid version format "%s".', $version), 0, $previous);
     }
 

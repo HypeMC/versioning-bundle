@@ -17,22 +17,16 @@ final class SemVerStrategy implements StrategyInterface
     ];
     private const REGEX = '~^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)$~';
 
-    /**
-     * @var string
-     */
-    private $defaultType;
-
-    public function __construct(string $defaultType)
-    {
+    public function __construct(
+        private readonly string $defaultType,
+    ) {
         if (!isset(self::INITIAL_VALUES[$defaultType])) {
             throw new \InvalidArgumentException(sprintf(
                 'Invalid value "%s" given, expected one of: "%s".',
                 $defaultType,
-                implode('", "', array_keys(self::INITIAL_VALUES))
+                implode('", "', array_keys(self::INITIAL_VALUES)),
             ));
         }
-
-        $this->defaultType = $defaultType;
     }
 
     public function __invoke(StyleInterface $io, ?Version $version = null): Version

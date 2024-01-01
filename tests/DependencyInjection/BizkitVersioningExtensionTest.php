@@ -110,7 +110,7 @@ final class BizkitVersioningExtensionTest extends TestCase
         $resources = array_map('strval', $container->getResources());
         $this->assertThat($resources, $this->logicalOr(
             $this->containsIdentical($file = __DIR__.'/Fixtures/foo.yaml'),
-            $this->containsIdentical('existence.'.$file)
+            $this->containsIdentical('existence.'.$file),
         ));
     }
 
@@ -199,7 +199,6 @@ final class BizkitVersioningExtensionTest extends TestCase
         $extension = new BizkitVersioningExtension();
         $refObject = new \ReflectionObject($extension);
         $refLoadInternal = $refObject->getMethod('loadInternal');
-        $refLoadInternal->setAccessible(true);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid version file format "invalid-format" provided.');

@@ -15,55 +15,40 @@ final class GitHandler implements VCSHandlerInterface
 {
     private const DEFAULT_MESSAGE = 'Update application version to %s';
 
-    /**
-     * @var string
-     */
-    private $file;
-
-    /**
-     * @var string
-     */
-    private $commitMessage;
-
-    /**
-     * @var string
-     */
-    private $tagMessage;
+    private readonly ?string $commitMessage;
+    private readonly ?string $tagMessage;
 
     /**
      * @var string[]
      */
-    private $baseCommand = [];
+    private readonly array $baseCommand;
 
     public function __construct(
-        string $file,
+        private readonly string $file,
         ?string $commitMessage = null,
         ?string $tagMessage = null,
         ?string $vcsName = null,
         ?string $vcsEmail = null,
-        ?string $pathToExecutable = null
+        ?string $pathToExecutable = null,
     ) {
-        $pathToExecutable = $pathToExecutable ?? (new ExecutableFinder())->find('git');
-
-        if (null === $pathToExecutable) {
-            throw new VCSException('Unable to find the Git executable.');
-        }
-
-        $this->file = $file;
+        $pathToExecutable ??= (new ExecutableFinder())->find('git')
+            ?? throw new VCSException('Unable to find the Git executable.');
 
         $this->commitMessage = $commitMessage ?? self::DEFAULT_MESSAGE;
         $this->tagMessage = $tagMessage ?? self::DEFAULT_MESSAGE;
 
-        $this->baseCommand[] = $pathToExecutable;
+        $baseCommand = [$pathToExecutable];
 
         if (null !== $vcsName) {
-            $this->baseCommand[] = '-c';
-            $this->baseCommand[] = sprintf('user.name="%s"', $vcsName);
+            $baseCommand[] = '-c';
+            $baseCommand[] = sprintf('user.name="%s"', $vcsName);
         }
         if (null !== $vcsEmail) {
-            $this->baseCommand[] = '-c';
-            $this->baseCommand[] = sprintf('user.email="%s"', $vcsEmail);
+            $baseCommand[] = '-c';
+            $baseCommand[] = sprintf('user.email="%s"', $vcsEmail);
         }
+
+        $this->baseCommand = $baseCommand;
     }
 
     public function commit(StyleInterface $io, Version $version): void
@@ -80,7 +65,7 @@ final class GitHandler implements VCSHandlerInterface
             $this->executeCommand($io, ['diff', '--cached', '--exit-code', '--quiet', $this->file]);
 
             throw new VCSException(sprintf('There are no changes to the file "%s".', $this->file));
-        } catch (ProcessFailedException $e) {
+        } catch (ProcessFailedException) {
             try {
                 $io->text(sprintf('Committing the file "%s".', $this->file));
                 $this->executeCommand($io, ['commit', '-m', sprintf($this->commitMessage, $version), $this->file]);
@@ -99,7 +84,7 @@ final class GitHandler implements VCSHandlerInterface
             $this->executeCommand($io, ['rev-parse', '--quiet', '--verify', sprintf('refs/tags/%s', $tag)]);
 
             throw new VCSException(sprintf('Cannot create the tag "%s" as it already exists.', $tag));
-        } catch (ProcessFailedException $e) {
+        } catch (ProcessFailedException) {
             try {
                 $io->text(sprintf('Creating a new tag "%s".', $tag));
                 $this->executeCommand($io, ['tag', '-a', $tag, '-m', sprintf($this->tagMessage, $version)]);

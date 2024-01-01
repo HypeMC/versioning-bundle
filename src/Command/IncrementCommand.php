@@ -28,44 +28,13 @@ final class IncrementCommand extends Command
     protected static $defaultName = self::DEFAULT_NAME;
     protected static $defaultDescription = self::DEFAULT_DESCRIPTION;
 
-    /**
-     * @var string
-     */
-    private $file;
-
-    /**
-     * @var ReaderInterface
-     */
-    private $reader;
-
-    /**
-     * @var WriterInterface
-     */
-    private $writer;
-
-    /**
-     * @var StrategyInterface
-     */
-    private $strategy;
-
-    /**
-     * @var VCSHandlerInterface|null
-     */
-    private $vcsHandler;
-
     public function __construct(
-        string $file,
-        ReaderInterface $reader,
-        WriterInterface $writer,
-        StrategyInterface $strategy,
-        ?VCSHandlerInterface $vcsHandler = null
+        private readonly string $file,
+        private readonly ReaderInterface $reader,
+        private readonly WriterInterface $writer,
+        private readonly StrategyInterface $strategy,
+        private readonly ?VCSHandlerInterface $vcsHandler = null,
     ) {
-        $this->file = $file;
-        $this->reader = $reader;
-        $this->writer = $writer;
-        $this->strategy = $strategy;
-        $this->vcsHandler = $vcsHandler;
-
         parent::__construct();
     }
 
@@ -107,7 +76,7 @@ final class IncrementCommand extends Command
         $io->success(sprintf(
             'Your application version has been %s to "%s".',
             null === $version ? 'initialized' : 'incremented',
-            $newVersion
+            $newVersion,
         ));
 
         try {

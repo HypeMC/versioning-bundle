@@ -18,15 +18,8 @@ use Symfony\Component\Yaml\Yaml;
  */
 final class IncrementCommandTest extends TestCase
 {
-    /**
-     * @var string|null
-     */
-    private $validFile;
-
-    /**
-     * @var string|null
-     */
-    private $invalidFile;
+    private string $validFile;
+    private string $invalidFile;
 
     protected function setUp(): void
     {
@@ -42,8 +35,10 @@ final class IncrementCommandTest extends TestCase
         unlink($this->validFile);
         unlink($this->invalidFile);
 
-        $this->validFile = null;
-        $this->invalidFile = null;
+        unset(
+            $this->validFile,
+            $this->invalidFile,
+        );
     }
 
     public function testVersionIsIncremented(): void
@@ -199,7 +194,7 @@ final class IncrementCommandTest extends TestCase
 
     private function createCommandTester(string $file, ?string $pathToVCSExecutable = null): CommandTester
     {
-        $vcs = null !== $pathToVCSExecutable ? new GitHandler($file, null, null, null, null, $pathToVCSExecutable) : null;
+        $vcs = null !== $pathToVCSExecutable ? new GitHandler($file, pathToExecutable: $pathToVCSExecutable) : null;
 
         return new CommandTester(
             new IncrementCommand(
@@ -207,8 +202,8 @@ final class IncrementCommandTest extends TestCase
                 new YamlFileReader($file, 'app'),
                 new YamlFileWriter($file, 'app'),
                 new IncrementingStrategy(),
-                $vcs
-            )
+                $vcs,
+            ),
         );
     }
 }

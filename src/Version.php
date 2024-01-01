@@ -6,26 +6,13 @@ namespace Bizkit\VersioningBundle;
 
 final class Version
 {
-    /**
-     * @var string
-     */
-    private $versionNumber;
+    private readonly string $versionHash;
 
-    /**
-     * @var string
-     */
-    private $versionHash;
-
-    /**
-     * @var \DateTimeInterface
-     */
-    private $releaseDate;
-
-    public function __construct(string $versionNumber, ?\DateTimeInterface $releaseDate = null)
-    {
-        $this->versionNumber = $versionNumber;
+    public function __construct(
+        private readonly string $versionNumber,
+        private readonly \DateTimeInterface $releaseDate = new \DateTimeImmutable(),
+    ) {
         $this->versionHash = md5($versionNumber);
-        $this->releaseDate = $releaseDate ?? new \DateTimeImmutable();
     }
 
     public function getVersionNumber(): string

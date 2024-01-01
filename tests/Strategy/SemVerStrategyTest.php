@@ -8,6 +8,7 @@ use Bizkit\VersioningBundle\Exception\InvalidVersionFormatException;
 use Bizkit\VersioningBundle\Strategy\SemVerStrategy;
 use Bizkit\VersioningBundle\Tests\TestCase;
 use Bizkit\VersioningBundle\Version;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Console\Style\StyleInterface;
 
 /**
@@ -15,15 +16,8 @@ use Symfony\Component\Console\Style\StyleInterface;
  */
 final class SemVerStrategyTest extends TestCase
 {
-    /**
-     * @var SemVerStrategy|null
-     */
-    private $strategy;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|StyleInterface|null
-     */
-    private $io;
+    private SemVerStrategy $strategy;
+    private MockObject&StyleInterface $io;
 
     protected function setUp(): void
     {
@@ -33,8 +27,10 @@ final class SemVerStrategyTest extends TestCase
 
     protected function tearDown(): void
     {
-        $this->strategy = null;
-        $this->io = null;
+        unset(
+            $this->strategy,
+            $this->io,
+        );
     }
 
     /**
@@ -51,7 +47,7 @@ final class SemVerStrategyTest extends TestCase
         $this->assertSame($incrementedVersion, $newVersion->getVersionNumber());
         $this->assertNotSame(
             $oldVersion->getReleaseDate()->format(\DateTimeInterface::RFC3339),
-            $newVersion->getReleaseDate()->format(\DateTimeInterface::RFC3339)
+            $newVersion->getReleaseDate()->format(\DateTimeInterface::RFC3339),
         );
     }
 

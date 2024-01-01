@@ -24,7 +24,7 @@ final class YamlFileReader extends AbstractFileReader
         if (!\is_array($data)) {
             throw new InvalidDataException(
                 sprintf('YAML content was expected to decode to an array, "%s" returned for "%s".', \gettype($data), $this->file),
-                $data
+                $data,
             );
         }
 

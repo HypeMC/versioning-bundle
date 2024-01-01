@@ -8,6 +8,7 @@ use Bizkit\VersioningBundle\Exception\VCSException;
 use Bizkit\VersioningBundle\Tests\TestCase;
 use Bizkit\VersioningBundle\VCS\GitHandler;
 use Bizkit\VersioningBundle\Version;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Console\Style\StyleInterface;
 
 /**
@@ -17,10 +18,7 @@ final class GitHandlerTest extends TestCase
 {
     private const VERSION_FILE = __DIR__.'/Fixtures/version.yaml';
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|StyleInterface|null
-     */
-    private $io;
+    private MockObject&StyleInterface $io;
 
     protected function setUp(): void
     {
@@ -29,10 +27,10 @@ final class GitHandlerTest extends TestCase
 
     protected function tearDown(): void
     {
-        $this->io = null;
+        unset($this->io);
     }
 
-    public function testDefaultMessagesAreUsed(): void
+    public function testDefaultSettings(): void
     {
         $version = new Version('1.2.3');
 
@@ -45,35 +43,43 @@ final class GitHandlerTest extends TestCase
             ['commit successful'],
             [sprintf('Checking if the tag "v%s" already exists.', $version)],
             [sprintf('Creating a new tag "v%s".', $version)],
-            ['tag created']
+            ['tag created'],
         );
 
         $this->io->expects($this->once())->method('error')->withConsecutive(
-            ['tag does not exist']
+            ['tag does not exist'],
         );
 
-        $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/default-settings.php', null, null);
+        $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/default-settings.php');
 
         $handler->commit($this->io, $version);
         $handler->tag($this->io, $version);
     }
 
-    public function testNameAndEmailAreNotUsedIfNull(): void
+    public function testCustomMessagesAreUsedIfExist(): void
     {
-        $this->io->expects($this->exactly(6))->method('text')->withConsecutive(
+        $version = new Version('1.2.3');
+
+        $this->io->expects($this->exactly(9))->method('text')->withConsecutive(
             [sprintf('Staging the file "%s".', self::VERSION_FILE)],
             ['stage successful'],
             [sprintf('Checking if the file "%s" has any changes to commit.', self::VERSION_FILE)],
             ['diff exists'],
             [sprintf('Committing the file "%s".', self::VERSION_FILE)],
-            ['commit successful']
+            ['commit successful'],
+            [sprintf('Checking if the tag "v%s" already exists.', $version)],
+            [sprintf('Creating a new tag "v%s".', $version)],
+            ['tag created'],
         );
 
-        $this->io->expects($this->never())->method('error');
+        $this->io->expects($this->once())->method('error')->withConsecutive(
+            ['tag does not exist'],
+        );
 
-        $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/default-settings.php', null, null);
+        $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/custom-messages.php', 'Commit msg %s', 'Tag msg %s');
 
-        $handler->commit($this->io, new Version('1.2.3'));
+        $handler->commit($this->io, $version);
+        $handler->tag($this->io, $version);
     }
 
     public function testNameAndEmailAreUsedIfExist(): void
@@ -84,12 +90,12 @@ final class GitHandlerTest extends TestCase
             [sprintf('Checking if the file "%s" has any changes to commit.', self::VERSION_FILE)],
             ['diff exists'],
             [sprintf('Committing the file "%s".', self::VERSION_FILE)],
-            ['commit successful']
+            ['commit successful'],
         );
 
         $this->io->expects($this->never())->method('error');
 
-        $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/custom-username-and-email.php', null, null, 'Some Name', 'test@email.com');
+        $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/custom-username-and-email.php', vcsName: 'Some Name', vcsEmail: 'test@email.com');
 
         $handler->commit($this->io, new Version('1.2.3'));
     }
@@ -102,7 +108,7 @@ final class GitHandlerTest extends TestCase
             [sprintf('Checking if the file "%s" has any changes to commit.', self::VERSION_FILE)],
             ['diff exists'],
             [sprintf('Committing the file "%s".', self::VERSION_FILE)],
-            ['commit successful']
+            ['commit successful'],
         );
 
         $this->io->expects($this->never())->method('error');
@@ -114,11 +120,11 @@ final class GitHandlerTest extends TestCase
     public function testExceptionIsThrownIfStageFails(): void
     {
         $this->io->expects($this->once())->method('text')->withConsecutive(
-            [sprintf('Staging the file "%s".', self::VERSION_FILE)]
+            [sprintf('Staging the file "%s".', self::VERSION_FILE)],
         );
 
         $this->io->expects($this->once())->method('error')->withConsecutive(
-            ['stage failed']
+            ['stage failed'],
         );
 
         $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/stage-failed.php');
@@ -135,7 +141,7 @@ final class GitHandlerTest extends TestCase
             [sprintf('Staging the file "%s".', self::VERSION_FILE)],
             ['stage successful'],
             [sprintf('Checking if the file "%s" has any changes to commit.', self::VERSION_FILE)],
-            ['nothing to commit']
+            ['nothing to commit'],
         );
 
         $this->io->expects($this->never())->method('error');
@@ -155,11 +161,11 @@ final class GitHandlerTest extends TestCase
             ['stage successful'],
             [sprintf('Checking if the file "%s" has any changes to commit.', self::VERSION_FILE)],
             ['diff exists'],
-            [sprintf('Committing the file "%s".', self::VERSION_FILE)]
+            [sprintf('Committing the file "%s".', self::VERSION_FILE)],
         );
 
         $this->io->expects($this->once())->method('error')->withConsecutive(
-            ['commit creation failed']
+            ['commit creation failed'],
         );
 
         $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/commit-creation-failed.php');
@@ -177,11 +183,11 @@ final class GitHandlerTest extends TestCase
         $this->io->expects($this->exactly(3))->method('text')->withConsecutive(
             [sprintf('Checking if the tag "v%s" already exists.', $version)],
             [sprintf('Creating a new tag "v%s".', $version)],
-            ['tag created']
+            ['tag created'],
         );
 
         $this->io->expects($this->once())->method('error')->withConsecutive(
-            ['tag does not exist']
+            ['tag does not exist'],
         );
 
         $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/tag-created-successfully.php');
@@ -194,7 +200,7 @@ final class GitHandlerTest extends TestCase
 
         $this->io->expects($this->exactly(2))->method('text')->withConsecutive(
             [sprintf('Checking if the tag "v%s" already exists.', $version)],
-            ['tag exists']
+            ['tag exists'],
         );
 
         $this->io->expects($this->never())->method('error');
@@ -213,12 +219,12 @@ final class GitHandlerTest extends TestCase
 
         $this->io->expects($this->exactly(2))->method('text')->withConsecutive(
             [sprintf('Checking if the tag "v%s" already exists.', $version)],
-            [sprintf('Creating a new tag "v%s".', $version)]
+            [sprintf('Creating a new tag "v%s".', $version)],
         );
 
         $this->io->expects($this->exactly(2))->method('error')->withConsecutive(
             ['tag does not exist'],
-            ['tag creation failed']
+            ['tag creation failed'],
         );
 
         $handler = $this->createHandler(__DIR__.'/Fixtures/fake-git/tag-creation-failed.php');
@@ -231,18 +237,21 @@ final class GitHandlerTest extends TestCase
 
     private function createHandler(
         string $pathToExecutable,
-        ?string $commitMessage = 'Commit msg %s',
-        ?string $tagMessage = 'Tag msg %s',
+        ?string $commitMessage = null,
+        ?string $tagMessage = null,
         ?string $vcsName = null,
-        ?string $vcsEmail = null
+        ?string $vcsEmail = null,
     ): GitHandler {
-        return new GitHandler(
-            self::VERSION_FILE,
-            $commitMessage,
-            $tagMessage,
-            $vcsName,
-            $vcsEmail,
-            $pathToExecutable
-        );
+        return new GitHandler(...array_filter(
+            [
+                'file' => self::VERSION_FILE,
+                'commitMessage' => $commitMessage,
+                'tagMessage' => $tagMessage,
+                'vcsName' => $vcsName,
+                'vcsEmail' => $vcsEmail,
+                'pathToExecutable' => $pathToExecutable,
+            ],
+            static fn ($value): bool => null !== $value,
+        ));
     }
 }
