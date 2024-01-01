@@ -20,12 +20,12 @@
     "require": {
         "php": ">=7.2",
         "ext-dom": "*",
-        "symfony/config": "^4.4 || ^5.2 || ^6.0",
-        "symfony/console": "^4.4 || ^5.2 || ^6.0",
-        "symfony/dependency-injection": "^4.4.2 || ^5.2 || ^6.0",
-        "symfony/http-kernel": "^4.4 || ^5.2 || ^6.0",
-        "symfony/process": "^4.4 || ^5.2 || ^6.0",
-        "symfony/yaml": "^4.4 || ^5.2 || ^6.0"
+        "symfony/config": "^4.4 || ^5.2 || ^6.0 || ^7.0",
+        "symfony/console": "^4.4 || ^5.2 || ^6.0 || ^7.0",
+        "symfony/dependency-injection": "^4.4.2 || ^5.2 || ^6.0 || ^7.0",
+        "symfony/http-kernel": "^4.4 || ^5.2 || ^6.0 || ^7.0",
+        "symfony/process": "^4.4 || ^5.2 || ^6.0 || ^7.0",
+        "symfony/yaml": "^4.4 || ^5.2 || ^6.0 || ^7.0"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^6.4.1"
