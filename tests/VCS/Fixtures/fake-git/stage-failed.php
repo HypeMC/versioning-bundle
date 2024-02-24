@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+declare(strict_types=1);
+
 $file = dirname(__DIR__).'/version.yaml';
 
 switch ($command = implode(' ', array_slice($argv, 1))) {

@@ -449,7 +449,7 @@ final class BizkitVersioningExtensionTest extends TestCase
     {
         $container = new ContainerBuilder();
         $container->setParameter('kernel.project_dir', sys_get_temp_dir());
-        $container->registerExtension($versioningExtension = new BizkitversioningExtension());
+        $container->registerExtension($versioningExtension = new BizkitVersioningExtension());
 
         $versioningExtension->load([], $container);
 

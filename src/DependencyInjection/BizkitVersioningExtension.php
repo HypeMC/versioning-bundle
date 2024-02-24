@@ -76,7 +76,7 @@ final class BizkitVersioningExtension extends ConfigurableExtension implements C
             new Loader\XmlFileLoader($container, $locator),
         ]);
 
-        /** @var \Symfony\Component\DependencyInjection\Loader\FileLoader|false $loader */
+        /** @var Loader\FileLoader|false $loader */
         $loader = $loaderResolver->resolve($file, $format);
 
         if (false === $loader) {
