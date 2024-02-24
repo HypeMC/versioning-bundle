@@ -1,4 +1,4 @@
-name: CI
+name: Tests
 
 on:
     push:
@@ -8,48 +8,6 @@ on:
         -   cron: '0 8 * * *'
 
 jobs:
-    php-cs-fixer:
-        runs-on: ubuntu-latest
-        name: Coding Standards
-        steps:
-            -   name: Checkout
-                uses: actions/checkout@v3
-
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: '8.1'
-                    coverage: none
-                    tools: php-cs-fixer, cs2pr
-
-            -   name: PHP Coding Standards Fixer
-                run: php-cs-fixer fix --dry-run --format checkstyle | cs2pr
-
-    phpstan:
-        runs-on: ubuntu-latest
-        name: Static Analysis
-        steps:
-            -   name: Checkout
-                uses: actions/checkout@v3
-
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: '8.1'
-                    coverage: none
-                    tools: phpstan
-
-            -   name: Install dependencies
-                uses: ramsey/composer-install@v2
-                with:
-                    composer-options: '--prefer-dist'
-
-            -   name: Install PHPUnit dependencies
-                run: vendor/bin/simple-phpunit install
-
-            -   name: PHPStan
-                run: phpstan analyse --no-progress
-
     phpunit:
         runs-on: ubuntu-latest
         strategy:
@@ -161,19 +119,19 @@ jobs:
                     ini-values: zend.exception_ignore_args=false
                     tools: flex
 
-            -   name: Install dependencies
+            -   name: Install Dependencies
                 uses: ramsey/composer-install@v2
                 with:
                     composer-options: '--prefer-dist'
                     dependency-versions: ${{ matrix.dependencies }}
 
-            -   name: Install PHPUnit dependencies
+            -   name: Install PHPUnit Dependencies
                 run: vendor/bin/simple-phpunit install
 
-            -   name: Run tests
+            -   name: Run PHPUnit
                 run: vendor/bin/simple-phpunit -v --coverage-text --coverage-clover=coverage.xml
 
-            -   name: Upload coverage to Codecov
+            -   name: Upload Coverage to Codecov
                 if: ${{ success() }}
                 uses: codecov/codecov-action@v3
                 with:
