@@ -46,6 +46,14 @@ final class IncrementCommandTest extends TestCase
         $this->invalidFile = null;
     }
 
+    public function testExceptionIsThrownForInvalidTaggingMode(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid VCS tagging mode "invalid". Expected one of: "always", "never", "ask".');
+
+        $this->createCommandTester($this->validFile, null, 'invalid');
+    }
+
     public function testVersionIsIncremented(): void
     {
         $commandTester = $this->createCommandTester($this->validFile);
@@ -181,6 +189,38 @@ final class IncrementCommandTest extends TestCase
         self::assertStringNotContainsString('Your application has successfully been tagged with the version "2".', $display);
     }
 
+    public function testFileIsCommittedAndTagIsAutocreatedIfVCSHandlerIsNotNullAndTaggingModeIsAlways(): void
+    {
+        $commandTester = $this->createCommandTester($this->validFile, __DIR__.'/Fixtures/fake-git/success.php', 'always');
+        $commandTester->setInputs(['yes', 'yes']);
+
+        $statusCode = $commandTester->execute([]);
+        $display = $commandTester->getDisplay();
+
+        self::assertSame(0, $statusCode);
+        self::assertStringContainsString('Your current application version is "1", do you wish to increment it?', $display);
+        self::assertStringContainsString('Your application version has been incremented to "2".', $display);
+        self::assertStringContainsString('Your application version file has successfully been committed to your VCS.', $display);
+        self::assertStringNotContainsString('Do you wish to create a tag with the version "2"?', $display);
+        self::assertStringContainsString('Your application has successfully been tagged with the version "2".', $display);
+    }
+
+    public function testFileIsCommittedAndTagIsNotPromptedIfVCSHandlerIsNotNullAndTaggingModeIsNever(): void
+    {
+        $commandTester = $this->createCommandTester($this->validFile, __DIR__.'/Fixtures/fake-git/success.php', 'never');
+        $commandTester->setInputs(['yes', 'yes']);
+
+        $statusCode = $commandTester->execute([]);
+        $display = $commandTester->getDisplay();
+
+        self::assertSame(0, $statusCode);
+        self::assertStringContainsString('Your current application version is "1", do you wish to increment it?', $display);
+        self::assertStringContainsString('Your application version has been incremented to "2".', $display);
+        self::assertStringContainsString('Your application version file has successfully been committed to your VCS.', $display);
+        self::assertStringNotContainsString('Do you wish to create a tag with the version "2"?', $display);
+        self::assertStringNotContainsString('Your application has successfully been tagged with the version "2".', $display);
+    }
+
     public function testVCSHandlerErrorIsSentToOutput(): void
     {
         $commandTester = $this->createCommandTester($this->validFile, __DIR__.'/Fixtures/fake-git/fail.php');
@@ -197,7 +237,7 @@ final class IncrementCommandTest extends TestCase
         self::assertStringContainsString('Cannot create the tag "v2" as it already exists.', $display);
     }
 
-    private function createCommandTester(string $file, ?string $pathToVCSExecutable = null): CommandTester
+    private function createCommandTester(string $file, ?string $pathToVCSExecutable = null, string $taggingMode = 'ask'): CommandTester
     {
         $vcs = null !== $pathToVCSExecutable ? new GitHandler($file, null, null, null, null, $pathToVCSExecutable) : null;
 
@@ -207,7 +247,8 @@ final class IncrementCommandTest extends TestCase
                 new YamlFileReader($file, 'app'),
                 new YamlFileWriter($file, 'app'),
                 new IncrementingStrategy(),
-                $vcs
+                $vcs,
+                $taggingMode
             )
         );
     }

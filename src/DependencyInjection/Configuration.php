@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bizkit\VersioningBundle\DependencyInjection;
 
+use Bizkit\VersioningBundle\Command\IncrementCommand;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -67,6 +68,12 @@ final class Configuration implements ConfigurationInterface
                             ->info('The message to use for the VCS commit.')
                             ->cannotBeEmpty()
                             ->defaultNull()
+                        ->end()
+                        ->enumNode('tagging_mode')
+                            ->values(IncrementCommand::TAGGING_MODES)
+                            ->info("The mode for applying tags to version commits:\n- 'always': automatically add a tag without prompting\n- 'never': do not add a tag\n- 'ask': prompt before tagging when incrementing versions")
+                            ->cannotBeEmpty()
+                            ->defaultValue('ask')
                         ->end()
                         ->scalarNode('tag_message')
                             ->info('The message to use for the VCS tag.')

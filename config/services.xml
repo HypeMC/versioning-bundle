@@ -56,6 +56,7 @@
             <argument type="service" id="Bizkit\VersioningBundle\Writer\WriterInterface" />
             <argument type="service" id="Bizkit\VersioningBundle\Strategy\StrategyInterface" />
             <argument type="service" id="Bizkit\VersioningBundle\VCS\VCSHandlerInterface" on-invalid="null" />
+            <argument>%bizkit_versioning.vcs_tagging_mode%</argument>
             <tag name="console.command" />
         </service>
     </services>

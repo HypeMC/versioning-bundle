@@ -63,6 +63,7 @@ final class BizkitVersioningExtension extends ConfigurableExtension implements C
 
         $container->setParameter('bizkit_versioning.vcs_commit_message', $mergedConfig['vcs']['commit_message']);
         $container->setParameter('bizkit_versioning.vcs_tag_message', $mergedConfig['vcs']['tag_message']);
+        $container->setParameter('bizkit_versioning.vcs_tagging_mode', $mergedConfig['vcs']['tagging_mode']);
         $container->setParameter('bizkit_versioning.vcs_name', $mergedConfig['vcs']['name']);
         $container->setParameter('bizkit_versioning.vcs_email', $mergedConfig['vcs']['email']);
         $container->setParameter('bizkit_versioning.path_to_vcs_executable', $mergedConfig['vcs']['path_to_executable']);

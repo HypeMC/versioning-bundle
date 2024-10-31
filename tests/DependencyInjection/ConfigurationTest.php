@@ -26,6 +26,7 @@ final class ConfigurationTest extends TestCase
             'vcs' => [
                 'handler' => 'git',
                 'commit_message' => null,
+                'tagging_mode' => 'ask',
                 'tag_message' => null,
                 'name' => null,
                 'email' => null,
@@ -44,6 +45,7 @@ final class ConfigurationTest extends TestCase
         self::assertSame([
             'handler' => 'git',
             'commit_message' => null,
+            'tagging_mode' => 'ask',
             'tag_message' => null,
             'name' => null,
             'email' => null,
@@ -61,6 +63,7 @@ final class ConfigurationTest extends TestCase
         self::assertSame([
             'handler' => null,
             'commit_message' => null,
+            'tagging_mode' => 'ask',
             'tag_message' => null,
             'name' => null,
             'email' => null,
