@@ -1,9 +1,9 @@
 # BizkitVersioningBundle
 
-[![Build Status](https://github.com/HypeMC/versioning-bundle/workflows/Tests/badge.svg)](https://github.com/HypeMC/versioning-bundle/actions)
 [![Latest Stable Version](https://poser.pugx.org/bizkit/versioning-bundle/v/stable)](https://packagist.org/packages/bizkit/versioning-bundle)
-[![License](https://poser.pugx.org/bizkit/versioning-bundle/license)](https://packagist.org/packages/bizkit/versioning-bundle)
+[![Build Status](https://github.com/HypeMC/versioning-bundle/workflows/Tests/badge.svg)](https://github.com/HypeMC/versioning-bundle/actions)
 [![Code Coverage](https://codecov.io/gh/HypeMC/versioning-bundle/branch/1.x/graph/badge.svg)](https://codecov.io/gh/HypeMC/versioning-bundle)
+[![License](https://poser.pugx.org/bizkit/versioning-bundle/license)](https://packagist.org/packages/bizkit/versioning-bundle)
 
 Symfony bundle which provides a way to version your application using various versioning strategies.
 
@@ -11,27 +11,27 @@ Symfony bundle which provides a way to version your application using various ve
 
 ## Features
 
-* Stores the application's version & release date into a compliant YAML or XML Symfony container configuration file
-* Automatically imports the file with the parameters into Symfony's container
-* Supports multiple versioning strategies & creating custom ones
-* Includes a console command for incrementing the version using the configured versioning strategy
-* The command automatically commits the version file & optionally creates a tag if a VCS handler is configured
-* Supports the Git VCS & creating custom VCS handlers
+- Stores the application's version & release date into a compliant YAML or XML Symfony container configuration file
+- Automatically imports the file with the parameters into Symfony's container
+- Supports multiple versioning strategies & creating custom ones
+- Includes a console command for incrementing the version using the configured versioning strategy
+- The command automatically commits the version file & optionally creates a tag if a VCS handler is configured
+- Supports the Git VCS & creating custom VCS handlers
 
 ## Requirements
 
-* [PHP 7.2](http://php.net/releases/7_2_0.php) or greater
-* [Symfony 4.4](https://symfony.com/roadmap/4.4) or [Symfony 5.2](https://symfony.com/roadmap/5.2) or greater
+- [PHP 7.2](http://php.net/releases/7_2_0.php) or higher
+- [Symfony 4.4](https://symfony.com/roadmap/4.4) or [Symfony 5.2](https://symfony.com/roadmap/5.2) or higher
 
 ## Installation
 
-1. Require the bundle with [Composer](https://getcomposer.org/):
+1. Require the bundle using [Composer](https://getcomposer.org/):
 
     ```sh
     composer require bizkit/versioning-bundle
     ```
 
-1. Create the bundle configuration file under `config/packages/bizkit_versioning.yaml`. Here is a reference configuration file:
+1. Create a configuration file under `config/packages/bizkit_versioning.yaml`. Here's a reference configuration:
 
     ```yaml
     bizkit_versioning:
@@ -84,7 +84,8 @@ Symfony bundle which provides a way to version your application using various ve
             path_to_executable:   null
     ```
 
-1. Enable the bundle in `config/bundles.php` by adding it to the array:
+1. If your project doesn't use [Symfony Flex](https://github.com/symfony/flex), enable the bundle in
+   `config/bundles.php` by adding it to the array:
 
     ```php
     Bizkit\VersioningBundle\BizkitVersioningBundle::class => ['all' => true],
@@ -229,12 +230,12 @@ bizkit_versioning:
 
 ## Versioning
 
-This project adheres to [Semantic Versioning 2.0.0](http://semver.org/).
+This project follows [Semantic Versioning 2.0.0](http://semver.org/).
 
-## Reporting issues
+## Reporting Issues
 
-Use the [issue tracker](https://github.com/HypeMC/versioning-bundle/issues) to report any issues you might have.
+Use the [issue tracker](https://github.com/HypeMC/versioning-bundle/issues) to report any issues you encounter.
 
 ## License
 
-See the [LICENSE](LICENSE) file for license rights and limitations (MIT).
+See the [LICENSE](LICENSE) file for details (MIT).
