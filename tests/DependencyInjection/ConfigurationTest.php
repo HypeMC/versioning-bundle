@@ -25,9 +25,9 @@ final class ConfigurationTest extends TestCase
             'format' => 'yaml',
             'vcs' => [
                 'handler' => 'git',
-                'commit_message' => null,
+                'commit_message' => 'Update application version to %s',
                 'tagging_mode' => 'ask',
-                'tag_message' => null,
+                'tag_message' => 'Update application version to %s',
                 'name' => null,
                 'email' => null,
                 'path_to_executable' => null,
@@ -44,9 +44,9 @@ final class ConfigurationTest extends TestCase
         self::assertArrayHasKey('vcs', $config);
         self::assertSame([
             'handler' => 'git',
-            'commit_message' => null,
+            'commit_message' => 'Update application version to %s',
             'tagging_mode' => 'ask',
-            'tag_message' => null,
+            'tag_message' => 'Update application version to %s',
             'name' => null,
             'email' => null,
             'path_to_executable' => null,
@@ -62,9 +62,9 @@ final class ConfigurationTest extends TestCase
         self::assertArrayHasKey('vcs', $config);
         self::assertSame([
             'handler' => null,
-            'commit_message' => null,
+            'commit_message' => 'Update application version to %s',
             'tagging_mode' => 'ask',
-            'tag_message' => null,
+            'tag_message' => 'Update application version to %s',
             'name' => null,
             'email' => null,
             'path_to_executable' => null,

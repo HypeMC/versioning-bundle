@@ -269,10 +269,10 @@ final class BizkitVersioningExtensionTest extends TestCase
         self::assertSame(__DIR__.'/version.yaml', $container->getParameter('bizkit_versioning.file'));
 
         self::assertTrue($container->hasParameter('bizkit_versioning.vcs_commit_message'));
-        self::assertNull($container->getParameter('bizkit_versioning.vcs_commit_message'));
+        self::assertSame(VCSHandlerInterface::DEFAULT_MESSAGE, $container->getParameter('bizkit_versioning.vcs_commit_message'));
 
         self::assertTrue($container->hasParameter('bizkit_versioning.vcs_tag_message'));
-        self::assertNull($container->getParameter('bizkit_versioning.vcs_tag_message'));
+        self::assertSame(VCSHandlerInterface::DEFAULT_MESSAGE, $container->getParameter('bizkit_versioning.vcs_tag_message'));
 
         self::assertTrue($container->hasParameter('bizkit_versioning.vcs_name'));
         self::assertNull($container->getParameter('bizkit_versioning.vcs_name'));

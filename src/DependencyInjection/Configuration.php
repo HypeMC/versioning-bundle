@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bizkit\VersioningBundle\DependencyInjection;
 
 use Bizkit\VersioningBundle\Command\IncrementCommand;
+use Bizkit\VersioningBundle\VCS\VCSHandlerInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -67,7 +68,7 @@ final class Configuration implements ConfigurationInterface
                         ->scalarNode('commit_message')
                             ->info('The message to use for the VCS commit.')
                             ->cannotBeEmpty()
-                            ->defaultNull()
+                            ->defaultValue(VCSHandlerInterface::DEFAULT_MESSAGE)
                         ->end()
                         ->enumNode('tagging_mode')
                             ->values(IncrementCommand::TAGGING_MODES)
@@ -78,23 +79,20 @@ final class Configuration implements ConfigurationInterface
                         ->scalarNode('tag_message')
                             ->info('The message to use for the VCS tag.')
                             ->cannotBeEmpty()
-                            ->defaultNull()
+                            ->defaultValue(VCSHandlerInterface::DEFAULT_MESSAGE)
                         ->end()
 
                         ->scalarNode('name')
                             ->info("The name used for the VCS commit information,\nset to null to use the default VCS configuration.")
-                            ->cannotBeEmpty()
                             ->defaultNull()
                         ->end()
                         ->scalarNode('email')
                             ->info("The email used for the VCS commit information,\nset to null to use the default VCS configuration.")
-                            ->cannotBeEmpty()
                             ->defaultNull()
                         ->end()
 
                         ->scalarNode('path_to_executable')
                             ->info("The path to the VCS executable,\nset to null for autodiscovery.")
-                            ->cannotBeEmpty()
                             ->defaultNull()
                         ->end()
                     ->end()

@@ -60,7 +60,7 @@ Symfony bundle which provides a way to version your application using various ve
             handler:              git
 
             # The message to use for the VCS commit.
-            commit_message:       null
+            commit_message:       'Update application version to %s'
 
             # The mode for applying tags to version commits:
             # - 'always': automatically add a tag without prompting
@@ -69,7 +69,7 @@ Symfony bundle which provides a way to version your application using various ve
             tagging_mode:         ask # One of "always"; "never"; "ask"
 
             # The message to use for the VCS tag.
-            tag_message:          null
+            tag_message:          'Update application version to %s'
 
             # The name used for the VCS commit information,
             # set to null to use the default VCS configuration.

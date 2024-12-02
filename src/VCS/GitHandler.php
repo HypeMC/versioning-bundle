@@ -13,8 +13,6 @@ use Symfony\Component\Process\Process;
 
 final class GitHandler implements VCSHandlerInterface
 {
-    private const DEFAULT_MESSAGE = 'Update application version to %s';
-
     /**
      * @var string
      */
