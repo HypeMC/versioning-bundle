@@ -41,9 +41,11 @@
         }
     },
     "scripts": {
-        "analyse": "phpstan analyse",
-        "lint": "php-cs-fixer fix -v",
-        "test": "simple-phpunit"
+        "run-checks": [
+            "php-cs-fixer fix -vvv",
+            "simple-phpunit",
+            "phpstan analyse"
+        ]
     },
     "config": {
         "sort-packages": true
