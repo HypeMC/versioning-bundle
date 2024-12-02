@@ -243,5 +243,715 @@
         "location": "Bizkit\\VersioningBundle\\Tests\\Reader\\XmlFileReaderTest::testExceptionIsThrownOnInvalidDate",
         "message": "Function libxml_disable_entity_loader() is deprecated",
         "count": 2
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Command\\Command",
+        "message": "Symfony\\Component\\Console\\Command\\Command::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Command\\Command",
+        "message": "Symfony\\Component\\Console\\Command\\Command::setApplication(): Implicitly marking parameter $application as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Command\\Command",
+        "message": "Symfony\\Component\\Console\\Command\\Command::addArgument(): Implicitly marking parameter $mode as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Command\\Command",
+        "message": "Symfony\\Component\\Console\\Command\\Command::addOption(): Implicitly marking parameter $shortcut as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Command\\Command",
+        "message": "Symfony\\Component\\Console\\Command\\Command::addOption(): Implicitly marking parameter $mode as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Input\\ArrayInput",
+        "message": "Symfony\\Component\\Console\\Input\\ArrayInput::__construct(): Implicitly marking parameter $definition as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Input\\Input",
+        "message": "Symfony\\Component\\Console\\Input\\Input::__construct(): Implicitly marking parameter $definition as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Output\\StreamOutput",
+        "message": "Symfony\\Component\\Console\\Output\\StreamOutput::__construct(): Implicitly marking parameter $decorated as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Output\\StreamOutput",
+        "message": "Symfony\\Component\\Console\\Output\\StreamOutput::__construct(): Implicitly marking parameter $formatter as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Output\\Output",
+        "message": "Symfony\\Component\\Console\\Output\\Output::__construct(): Implicitly marking parameter $formatter as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle",
+        "message": "Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle::__construct(): Implicitly marking parameter $foreground as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle",
+        "message": "Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle::__construct(): Implicitly marking parameter $background as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle",
+        "message": "Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle::setForeground(): Implicitly marking parameter $color as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle",
+        "message": "Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle::setBackground(): Implicitly marking parameter $color as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Formatter\\OutputFormatterStyleStack",
+        "message": "Symfony\\Component\\Console\\Formatter\\OutputFormatterStyleStack::__construct(): Implicitly marking parameter $emptyStyle as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Formatter\\OutputFormatterStyleStack",
+        "message": "Symfony\\Component\\Console\\Formatter\\OutputFormatterStyleStack::pop(): Implicitly marking parameter $style as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Style\\SymfonyStyle",
+        "message": "Symfony\\Component\\Console\\Style\\SymfonyStyle::block(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Style\\SymfonyStyle",
+        "message": "Symfony\\Component\\Console\\Style\\SymfonyStyle::block(): Implicitly marking parameter $style as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Style\\SymfonyStyle",
+        "message": "Symfony\\Component\\Console\\Style\\SymfonyStyle::ask(): Implicitly marking parameter $default as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Style\\SymfonyStyle",
+        "message": "Symfony\\Component\\Console\\Style\\SymfonyStyle::ask(): Implicitly marking parameter $validator as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Style\\SymfonyStyle",
+        "message": "Symfony\\Component\\Console\\Style\\SymfonyStyle::askHidden(): Implicitly marking parameter $validator as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Style\\SymfonyStyle",
+        "message": "Symfony\\Component\\Console\\Style\\SymfonyStyle::progressIterate(): Implicitly marking parameter $max as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Style\\SymfonyStyle",
+        "message": "Symfony\\Component\\Console\\Style\\SymfonyStyle::createBlock(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Style\\SymfonyStyle",
+        "message": "Symfony\\Component\\Console\\Style\\SymfonyStyle::createBlock(): Implicitly marking parameter $style as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Style\\StyleInterface",
+        "message": "Symfony\\Component\\Console\\Style\\StyleInterface::ask(): Implicitly marking parameter $default as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Style\\StyleInterface",
+        "message": "Symfony\\Component\\Console\\Style\\StyleInterface::ask(): Implicitly marking parameter $validator as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Style\\StyleInterface",
+        "message": "Symfony\\Component\\Console\\Style\\StyleInterface::askHidden(): Implicitly marking parameter $validator as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Output\\TrimmedBufferOutput",
+        "message": "Symfony\\Component\\Console\\Output\\TrimmedBufferOutput::__construct(): Implicitly marking parameter $formatter as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Yaml\\Parser",
+        "message": "Symfony\\Component\\Yaml\\Parser::getNextEmbedBlock(): Implicitly marking parameter $indentation as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Yaml\\Parser",
+        "message": "Symfony\\Component\\Yaml\\Parser::preg_match(): Implicitly marking parameter $matches as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Yaml\\Inline",
+        "message": "Symfony\\Component\\Yaml\\Inline::initialize(): Implicitly marking parameter $parsedLineNumber as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Yaml\\Inline",
+        "message": "Symfony\\Component\\Yaml\\Inline::initialize(): Implicitly marking parameter $parsedFilename as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Yaml\\Inline",
+        "message": "Symfony\\Component\\Yaml\\Inline::parseScalar(): Implicitly marking parameter $delimiters as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Yaml\\Inline",
+        "message": "Symfony\\Component\\Yaml\\Inline::parseScalar(): Implicitly marking parameter $isQuoted as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Yaml\\Inline",
+        "message": "Symfony\\Component\\Yaml\\Inline::evaluateScalar(): Implicitly marking parameter $isQuotedString as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Question\\Question",
+        "message": "Symfony\\Component\\Console\\Question\\Question::__construct(): Implicitly marking parameter $default as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Question\\Question",
+        "message": "Symfony\\Component\\Console\\Question\\Question::setAutocompleterCallback(): Implicitly marking parameter $callback as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Question\\Question",
+        "message": "Symfony\\Component\\Console\\Question\\Question::setValidator(): Implicitly marking parameter $validator as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Helper\\Helper",
+        "message": "Symfony\\Component\\Console\\Helper\\Helper::setHelperSet(): Implicitly marking parameter $helperSet as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Console\\Helper\\Helper",
+        "message": "Symfony\\Component\\Console\\Helper\\Helper::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\String\\UnicodeString",
+        "message": "Symfony\\Component\\String\\UnicodeString::join(): Implicitly marking parameter $lastGlue as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\String\\UnicodeString",
+        "message": "Symfony\\Component\\String\\UnicodeString::slice(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\String\\UnicodeString",
+        "message": "Symfony\\Component\\String\\UnicodeString::splice(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\String\\UnicodeString",
+        "message": "Symfony\\Component\\String\\UnicodeString::split(): Implicitly marking parameter $limit as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\String\\UnicodeString",
+        "message": "Symfony\\Component\\String\\UnicodeString::split(): Implicitly marking parameter $flags as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\String\\AbstractUnicodeString",
+        "message": "Symfony\\Component\\String\\AbstractUnicodeString::join(): Implicitly marking parameter $lastGlue as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\String\\AbstractString",
+        "message": "Symfony\\Component\\String\\AbstractString::join(): Implicitly marking parameter $lastGlue as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\String\\AbstractString",
+        "message": "Symfony\\Component\\String\\AbstractString::slice(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\String\\AbstractString",
+        "message": "Symfony\\Component\\String\\AbstractString::splice(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\String\\AbstractString",
+        "message": "Symfony\\Component\\String\\AbstractString::split(): Implicitly marking parameter $limit as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\String\\AbstractString",
+        "message": "Symfony\\Component\\String\\AbstractString::split(): Implicitly marking parameter $flags as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\String\\AbstractString",
+        "message": "Symfony\\Component\\String\\AbstractString::toByteString(): Implicitly marking parameter $toEncoding as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Process\\Process",
+        "message": "Symfony\\Component\\Process\\Process::__construct(): Implicitly marking parameter $cwd as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Process\\Process",
+        "message": "Symfony\\Component\\Process\\Process::__construct(): Implicitly marking parameter $env as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Process\\Process",
+        "message": "Symfony\\Component\\Process\\Process::fromShellCommandline(): Implicitly marking parameter $cwd as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Process\\Process",
+        "message": "Symfony\\Component\\Process\\Process::fromShellCommandline(): Implicitly marking parameter $env as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Process\\Process",
+        "message": "Symfony\\Component\\Process\\Process::run(): Implicitly marking parameter $callback as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Process\\Process",
+        "message": "Symfony\\Component\\Process\\Process::mustRun(): Implicitly marking parameter $callback as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Process\\Process",
+        "message": "Symfony\\Component\\Process\\Process::start(): Implicitly marking parameter $callback as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Process\\Process",
+        "message": "Symfony\\Component\\Process\\Process::restart(): Implicitly marking parameter $callback as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Process\\Process",
+        "message": "Symfony\\Component\\Process\\Process::wait(): Implicitly marking parameter $callback as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Process\\Process",
+        "message": "Symfony\\Component\\Process\\Process::stop(): Implicitly marking parameter $signal as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Process\\Process",
+        "message": "Symfony\\Component\\Process\\Process::buildCallback(): Implicitly marking parameter $callback as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\ContainerBuilder",
+        "message": "Symfony\\Component\\DependencyInjection\\ContainerBuilder::__construct(): Implicitly marking parameter $parameterBag as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\ContainerBuilder",
+        "message": "Symfony\\Component\\DependencyInjection\\ContainerBuilder::loadFromExtension(): Implicitly marking parameter $values as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\ContainerBuilder",
+        "message": "Symfony\\Component\\DependencyInjection\\ContainerBuilder::doGet(): Implicitly marking parameter $inlineServices as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\ContainerBuilder",
+        "message": "Symfony\\Component\\DependencyInjection\\ContainerBuilder::register(): Implicitly marking parameter $class as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\ContainerBuilder",
+        "message": "Symfony\\Component\\DependencyInjection\\ContainerBuilder::autowire(): Implicitly marking parameter $class as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\ContainerBuilder",
+        "message": "Symfony\\Component\\DependencyInjection\\ContainerBuilder::createService(): Implicitly marking parameter $id as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\ContainerBuilder",
+        "message": "Symfony\\Component\\DependencyInjection\\ContainerBuilder::registerAliasForArgument(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\ContainerBuilder",
+        "message": "Symfony\\Component\\DependencyInjection\\ContainerBuilder::resolveEnvPlaceholders(): Implicitly marking parameter $format as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\ContainerBuilder",
+        "message": "Symfony\\Component\\DependencyInjection\\ContainerBuilder::resolveEnvPlaceholders(): Implicitly marking parameter $usedEnvs as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Container",
+        "message": "Symfony\\Component\\DependencyInjection\\Container::__construct(): Implicitly marking parameter $parameterBag as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Argument\\ServiceLocator",
+        "message": "Symfony\\Component\\DependencyInjection\\Argument\\ServiceLocator::__construct(): Implicitly marking parameter $serviceTypes as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\ServiceLocator",
+        "message": "Symfony\\Component\\DependencyInjection\\ServiceLocator::formatAlternatives(): Implicitly marking parameter $alternatives as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Definition",
+        "message": "Symfony\\Component\\DependencyInjection\\Definition::__construct(): Implicitly marking parameter $class as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Definition",
+        "message": "Symfony\\Component\\DependencyInjection\\Definition::setDecoratedService(): Implicitly marking parameter $renamedId as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Resource\\ClassExistenceResource",
+        "message": "Symfony\\Component\\Config\\Resource\\ClassExistenceResource::__construct(): Implicitly marking parameter $exists as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Resource\\ClassExistenceResource",
+        "message": "Symfony\\Component\\Config\\Resource\\ClassExistenceResource::throwOnRequiredClass(): Implicitly marking parameter $previous as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Definition\\Processor",
+        "message": "Symfony\\Component\\Config\\Definition\\Processor::normalizeConfig(): Implicitly marking parameter $plural as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder",
+        "message": "Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder::__construct(): Implicitly marking parameter $builder as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Definition\\Builder\\NodeBuilder",
+        "message": "Symfony\\Component\\Config\\Definition\\Builder\\NodeBuilder::setParent(): Implicitly marking parameter $parent as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition",
+        "message": "Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition::__construct(): Implicitly marking parameter $parent as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition",
+        "message": "Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition::addDefaultChildrenIfNoneSet(): Implicitly marking parameter $children as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition",
+        "message": "Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition::fixXmlConfig(): Implicitly marking parameter $plural as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition",
+        "message": "Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::__construct(): Implicitly marking parameter $parent as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Definition\\BaseNode",
+        "message": "Symfony\\Component\\Config\\Definition\\BaseNode::__construct(): Implicitly marking parameter $parent as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Definition\\EnumNode",
+        "message": "Symfony\\Component\\Config\\Definition\\EnumNode::__construct(): Implicitly marking parameter $parent as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Definition\\Builder\\NormalizationBuilder",
+        "message": "Symfony\\Component\\Config\\Definition\\Builder\\NormalizationBuilder::remap(): Implicitly marking parameter $plural as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Definition\\Builder\\NormalizationBuilder",
+        "message": "Symfony\\Component\\Config\\Definition\\Builder\\NormalizationBuilder::before(): Implicitly marking parameter $closure as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Definition\\Builder\\ExprBuilder",
+        "message": "Symfony\\Component\\Config\\Definition\\Builder\\ExprBuilder::always(): Implicitly marking parameter $then as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Definition\\Builder\\ExprBuilder",
+        "message": "Symfony\\Component\\Config\\Definition\\Builder\\ExprBuilder::ifTrue(): Implicitly marking parameter $closure as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader::load(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader::loadXml(): Implicitly marking parameter $root as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader::supports(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader::parseParameters(): Implicitly marking parameter $root as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader::parseImports(): Implicitly marking parameter $root as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader::parseDefinitions(): Implicitly marking parameter $root as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader::getServiceDefaults(): Implicitly marking parameter $root as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader::processAnonymousServices(): Implicitly marking parameter $root as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\FileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\FileLoader::__construct(): Implicitly marking parameter $env as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\FileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\FileLoader::import(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\FileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\FileLoader::import(): Implicitly marking parameter $sourceResource as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\FileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\FileLoader::registerClasses(): Implicitly marking parameter $exclude as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\FileLoader",
+        "message": "Symfony\\Component\\Config\\Loader\\FileLoader::__construct(): Implicitly marking parameter $env as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\FileLoader",
+        "message": "Symfony\\Component\\Config\\Loader\\FileLoader::import(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\FileLoader",
+        "message": "Symfony\\Component\\Config\\Loader\\FileLoader::import(): Implicitly marking parameter $sourceResource as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\FileLoader",
+        "message": "Symfony\\Component\\Config\\Loader\\FileLoader::import(): Implicitly marking parameter $exclude as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\FileLoader",
+        "message": "Symfony\\Component\\Config\\Loader\\FileLoader::glob(): Implicitly marking parameter $resource as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\FileLoader",
+        "message": "Symfony\\Component\\Config\\Loader\\FileLoader::doImport(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\FileLoader",
+        "message": "Symfony\\Component\\Config\\Loader\\FileLoader::doImport(): Implicitly marking parameter $sourceResource as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\Loader",
+        "message": "Symfony\\Component\\Config\\Loader\\Loader::__construct(): Implicitly marking parameter $env as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\Loader",
+        "message": "Symfony\\Component\\Config\\Loader\\Loader::import(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\Loader",
+        "message": "Symfony\\Component\\Config\\Loader\\Loader::resolve(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\LoaderInterface",
+        "message": "Symfony\\Component\\Config\\Loader\\LoaderInterface::load(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\LoaderInterface",
+        "message": "Symfony\\Component\\Config\\Loader\\LoaderInterface::supports(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\FileLocator",
+        "message": "Symfony\\Component\\Config\\FileLocator::locate(): Implicitly marking parameter $currentPath as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\FileLocatorInterface",
+        "message": "Symfony\\Component\\Config\\FileLocatorInterface::locate(): Implicitly marking parameter $currentPath as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Util\\XmlUtils",
+        "message": "Symfony\\Component\\Config\\Util\\XmlUtils::parse(): Implicitly marking parameter $schemaOrCallable as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Util\\XmlUtils",
+        "message": "Symfony\\Component\\Config\\Util\\XmlUtils::loadFile(): Implicitly marking parameter $schemaOrCallable as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Argument\\BoundArgument",
+        "message": "Symfony\\Component\\DependencyInjection\\Argument\\BoundArgument::__construct(): Implicitly marking parameter $file as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\LoaderResolver",
+        "message": "Symfony\\Component\\Config\\Loader\\LoaderResolver::resolve(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Loader\\LoaderResolverInterface",
+        "message": "Symfony\\Component\\Config\\Loader\\LoaderResolverInterface::resolve(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader::load(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader",
+        "message": "Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader::supports(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Exception\\FileLocatorFileNotFoundException",
+        "message": "Symfony\\Component\\Config\\Exception\\FileLocatorFileNotFoundException::__construct(): Implicitly marking parameter $previous as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Exception\\LoaderLoadException",
+        "message": "Symfony\\Component\\Config\\Exception\\LoaderLoadException::__construct(): Implicitly marking parameter $sourceResource as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Exception\\LoaderLoadException",
+        "message": "Symfony\\Component\\Config\\Exception\\LoaderLoadException::__construct(): Implicitly marking parameter $previous as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Config\\Exception\\LoaderLoadException",
+        "message": "Symfony\\Component\\Config\\Exception\\LoaderLoadException::__construct(): Implicitly marking parameter $type as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Compiler\\MergeExtensionConfigurationPass",
+        "message": "Symfony\\Component\\DependencyInjection\\Compiler\\MergeExtensionConfigurationContainerBuilder::__construct(): Implicitly marking parameter $parameterBag as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Compiler\\MergeExtensionConfigurationPass",
+        "message": "Symfony\\Component\\DependencyInjection\\Compiler\\MergeExtensionConfigurationContainerBuilder::resolveEnvPlaceholders(): Implicitly marking parameter $format as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Compiler\\MergeExtensionConfigurationPass",
+        "message": "Symfony\\Component\\DependencyInjection\\Compiler\\MergeExtensionConfigurationContainerBuilder::resolveEnvPlaceholders(): Implicitly marking parameter $usedEnvs as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Compiler\\ServiceLocatorTagPass",
+        "message": "Symfony\\Component\\DependencyInjection\\Compiler\\ServiceLocatorTagPass::register(): Implicitly marking parameter $callerId as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Compiler\\AutowirePass",
+        "message": "Symfony\\Component\\DependencyInjection\\Compiler\\AutowirePass::populateAutowiringAlias(): Implicitly marking parameter $target as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Compiler\\AutowirePass",
+        "message": "Symfony\\Component\\DependencyInjection\\Compiler\\AutowirePass::getCombinedAlias(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Compiler\\InlineServiceDefinitionsPass",
+        "message": "Symfony\\Component\\DependencyInjection\\Compiler\\InlineServiceDefinitionsPass::__construct(): Implicitly marking parameter $analyzingPass as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\Compiler\\ServiceReferenceGraph",
+        "message": "Symfony\\Component\\DependencyInjection\\Compiler\\ServiceReferenceGraph::connect(): Implicitly marking parameter $reference as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\DependencyInjection\\EnvVarProcessor",
+        "message": "Symfony\\Component\\DependencyInjection\\EnvVarProcessor::__construct(): Implicitly marking parameter $loaders as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Process\\ExecutableFinder",
+        "message": "Symfony\\Component\\Process\\ExecutableFinder::find(): Implicitly marking parameter $default as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Yaml\\Exception\\ParseException",
+        "message": "Symfony\\Component\\Yaml\\Exception\\ParseException::__construct(): Implicitly marking parameter $snippet as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Yaml\\Exception\\ParseException",
+        "message": "Symfony\\Component\\Yaml\\Exception\\ParseException::__construct(): Implicitly marking parameter $parsedFile as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
+    },
+    {
+        "location": "Symfony\\Component\\Yaml\\Exception\\ParseException",
+        "message": "Symfony\\Component\\Yaml\\Exception\\ParseException::__construct(): Implicitly marking parameter $previous as nullable is deprecated, the explicit nullable type must be used instead",
+        "count": 1
     }
 ]
