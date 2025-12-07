@@ -11,27 +11,29 @@ Symfony bundle which provides a way to version your application using various ve
 
 ## Features
 
-- Stores the application's version & release date into a compliant YAML Symfony container configuration file
-- Automatically imports the file with the parameters into Symfony's container
-- Supports multiple versioning strategies & creating custom ones
-- Includes a console command for incrementing the version using the configured versioning strategy
-- The command automatically commits the version file & optionally creates a tag if a VCS handler is configured
-- Supports the Git VCS & creating custom VCS handlers
+* Stores the application's version and release date in a compliant YAML Symfony container configuration file
+* Automatically imports the file containing the parameters into Symfony's container
+* Supports multiple versioning strategies and the ability to create custom ones
+* Includes a console command for incrementing the version using the configured versioning strategy
+* Automatically commits the version file and optionally creates a tag if a VCS handler is configured
+* Supports Git VCS and allows creating custom VCS handlers
 
 ## Requirements
 
-- [PHP 8.1](http://php.net/releases/8_1_0.php) or higher
-- [Symfony 6.4](https://symfony.com/roadmap/6.4) or [Symfony 7.4](https://symfony.com/roadmap/7.4) or higher
+* [PHP 8.1](http://php.net/releases/8_1_0.php) or higher
+* [Symfony 6.4](https://symfony.com/roadmap/6.4) or [Symfony 7.4](https://symfony.com/roadmap/7.4) or higher
 
 ## Installation
 
-1. Require the bundle using [Composer](https://getcomposer.org/):
+Require the bundle using [Composer](https://getcomposer.org/):
 
-    ```sh
-    composer require bizkit/versioning-bundle
-    ```
+```sh
+composer require bizkit/versioning-bundle
+```
 
-1. Create a configuration file under `config/packages/bizkit_versioning.yaml`. Here's a reference configuration:
+If your project doesn't use [Symfony Flex](https://github.com/symfony/flex), continue with the following steps:
+
+1. Create a configuration file at `config/packages/bizkit_versioning.yaml`. Here's a reference configuration:
 
     ```yaml
     bizkit_versioning:
@@ -84,8 +86,7 @@ Symfony bundle which provides a way to version your application using various ve
             path_to_executable:   null
     ```
 
-1. If your project doesn't use [Symfony Flex](https://github.com/symfony/flex), enable the bundle in
-   `config/bundles.php` by adding it to the array:
+1. Enable the bundle in `config/bundles.php` by adding it to the array:
 
     ```php
     Bizkit\VersioningBundle\BizkitVersioningBundle::class => ['all' => true],
@@ -93,18 +94,22 @@ Symfony bundle which provides a way to version your application using various ve
 
 ## Usage
 
-The bundle creates a compliant [Symfony Dependency Injection Container](https://symfony.com/doc/4.4/components/dependency_injection.html)
-configuration file with the following three parameters:
+The bundle creates a
+compliant [Symfony Dependency Injection Container](https://symfony.com/doc/6.4/components/dependency_injection.html)
+configuration file with the following parameters:
 
-- `application.version` - the application's version (the format depends on the configured versioning strategy)
-- `application.version_hash` - an MD5 digest of the version
-- `application.release_date` - an [RFC 3339](https://tools.ietf.org/html/rfc3339) formatted date on which the version was last incremented
+* `application.version` - the application's version (the format depends on the configured versioning strategy)
+* `application.version_hash` - an MD5 digest of the version
+* `application.release_date` - an [RFC 3339](https://tools.ietf.org/html/rfc3339)-formatted date on which the version
+  was last incremented
 
-> **NOTE:** The parameter names mighty vary depending on the `parameter_prefix` configuration option.
+> **NOTE:** The parameter names may vary depending on the `parameter_prefix` configuration option.
 
-It automatically adds the parameters into Symfony's container by registering the file as an [import](https://symfony.com/doc/4.4/service_container/import.html).
+It automatically adds the parameters into Symfony's container by registering the file as
+an [import](https://symfony.com/doc/6.4/service_container/import.html).
 
-To find out more about parameters check Symfony's [official documentation](https://symfony.com/doc/4.4/configuration.html#configuration-parameters).
+To learn more about parameters, see
+Symfony's [official documentation](https://symfony.com/doc/6.4/configuration.html#configuration-parameters).
 The following example shows how to use it with [Sentry's](https://sentry.io/) Monolog handler:
 
 ```yaml
@@ -117,14 +122,14 @@ monolog:
 
 ### Incrementing the version
 
-To increment the version using the configured strategy run the following command:
+To increment the version using the configured strategy, run the following command:
 
 ```sh
 bin/console bizkit:versioning:increment
 ```
 
-If you have a VCS handler configured, the command will automatically commit the version file
-& optionally create a tag with the new version.
+If a VCS handler is configured, the command will automatically commit the version file
+and optionally create a tag with the new version.
 
 ## Versioning strategies
 
@@ -135,7 +140,7 @@ The bundle comes with the following version strategies:
 
 ### Custom strategies
 
-To implement a custom strategy all you need to do is create a service which implements the `StrategyInterface` interface.
+To implement a custom strategy, create a service that implements the `StrategyInterface` interface.
 
 ```php
 namespace App;
@@ -162,8 +167,9 @@ bizkit_versioning:
     strategy: App\MyStrategy
 ```
 
-If you are not using Symfony's [autoconfigure](https://symfony.com/doc/4.4/service_container.html#the-autoconfigure-option)
-feature or wish to use an alias in the configuration, tag the service with the `bizkit_versioning.strategy` tag.
+If you are not using
+Symfony's [autoconfigure](https://symfony.com/doc/6.4/service_container.html#the-autoconfigure-option)
+feature or wish to use an alias in the configuration, tag the service with the `bizkit_versioning.strategy` tag:
 
 ```yaml
 App\MyStrategy:
@@ -176,8 +182,8 @@ bizkit_versioning:
 
 ## VCS handlers
 
-The bundle comes with a handler for the [Git](https://git-scm.com/) VCS. If you wish to disable the VCS feature,
-set the `vcs` configuration option to `false`:
+The bundle includes a handler for the [Git](https://git-scm.com/) VCS.
+To disable the VCS feature, set the `vcs` configuration option to `false`:
 
 ```yaml
 bizkit_versioning:
@@ -186,7 +192,7 @@ bizkit_versioning:
 
 ### Custom VCS handlers
 
-To implement a custom VCS handler all you need to do is create a service which implements the `VCSHandlerInterface` interface.
+To implement a custom VCS handler, create a service that implements the `VCSHandlerInterface` interface:
 
 ```php
 namespace App;
@@ -215,8 +221,8 @@ bizkit_versioning:
         handler: App\MyVCSHandler
 ```
 
-If you are not using Symfony's [autoconfigure](https://symfony.com/doc/4.4/service_container.html#the-autoconfigure-option)
-feature or wish to use an alias in the configuration, tag the service with the `bizkit_versioning.vcs_handler` tag.
+If you are not using Symfony's autoconfigure feature or want to use an alias, tag the service with the
+`bizkit_versioning.vcs_handler` tag:
 
 ```yaml
 App\MyVCSHandler:
