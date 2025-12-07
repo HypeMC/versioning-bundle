@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Bizkit\VersioningBundle\DependencyInjection;
 
-use Bizkit\VersioningBundle\Command\IncrementCommand;
+use Bizkit\VersioningBundle\VCS\TaggingMode;
 use Bizkit\VersioningBundle\VCS\VCSHandlerInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 final class Configuration implements ConfigurationInterface
 {
@@ -67,10 +68,18 @@ final class Configuration implements ConfigurationInterface
                             ->defaultValue(VCSHandlerInterface::DEFAULT_MESSAGE)
                         ->end()
                         ->enumNode('tagging_mode')
-                            ->values(IncrementCommand::TAGGING_MODES)
+                            ->beforeNormalization()
+                                ->ifString()
+                                ->then(static fn ($v) => TaggingMode::tryFrom($v) ?? throw new InvalidConfigurationException(\sprintf(
+                                    'Invalid tagging mode provided: expected one of "%s", got "%s".',
+                                    implode('", "', array_map(static fn (TaggingMode $case) => $case->value, TaggingMode::cases())),
+                                    $v,
+                                )))
+                            ->end()
+                            ->values(TaggingMode::cases())
                             ->info("The mode for applying tags to version commits:\n- 'always': automatically add a tag without prompting\n- 'never': do not add a tag\n- 'ask': prompt before tagging when incrementing versions")
                             ->cannotBeEmpty()
-                            ->defaultValue('ask')
+                            ->defaultValue(TaggingMode::Ask)
                         ->end()
                         ->scalarNode('tag_message')
                             ->info('The message to use for the VCS tag.')

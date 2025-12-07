@@ -9,6 +9,7 @@ use Bizkit\VersioningBundle\Exception\StorageException;
 use Bizkit\VersioningBundle\Exception\VCSException;
 use Bizkit\VersioningBundle\Reader\ReaderInterface;
 use Bizkit\VersioningBundle\Strategy\StrategyInterface;
+use Bizkit\VersioningBundle\VCS\TaggingMode;
 use Bizkit\VersioningBundle\VCS\VCSHandlerInterface;
 use Bizkit\VersioningBundle\Version;
 use Bizkit\VersioningBundle\Writer\WriterInterface;
@@ -25,22 +26,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 final class IncrementCommand extends Command
 {
-    public const TAGGING_MODES = ['always', 'never', 'ask'];
-
     public function __construct(
         private readonly string $file,
         private readonly ReaderInterface $reader,
         private readonly WriterInterface $writer,
         private readonly StrategyInterface $strategy,
         private readonly ?VCSHandlerInterface $vcsHandler = null,
-        private readonly string $vcsTaggingMode = 'ask',
+        private readonly TaggingMode $vcsTaggingMode = TaggingMode::Ask,
     ) {
-        if (!\in_array($vcsTaggingMode, self::TAGGING_MODES, true)) {
-            throw new \InvalidArgumentException(
-                \sprintf('Invalid VCS tagging mode "%s". Expected one of: "%s".', $vcsTaggingMode, implode('", "', self::TAGGING_MODES)),
-            );
-        }
-
         parent::__construct();
     }
 
@@ -100,12 +93,12 @@ final class IncrementCommand extends Command
         $this->vcsHandler->commit($io, $version);
         $io->success('Your application version file has successfully been committed to your VCS.');
 
-        if ('never' === $this->vcsTaggingMode) {
+        if (TaggingMode::Never === $this->vcsTaggingMode) {
             return;
         }
 
         if (
-            'always' === $this->vcsTaggingMode
+            TaggingMode::Always === $this->vcsTaggingMode
             || $io->confirm(\sprintf('Do you wish to create a tag with the version "%s"?', $version))
         ) {
             $this->vcsHandler->tag($io, $version);

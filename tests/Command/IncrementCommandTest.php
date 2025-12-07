@@ -9,6 +9,7 @@ use Bizkit\VersioningBundle\Reader\YamlFileReader;
 use Bizkit\VersioningBundle\Strategy\IncrementingStrategy;
 use Bizkit\VersioningBundle\Tests\TestCase;
 use Bizkit\VersioningBundle\VCS\GitHandler;
+use Bizkit\VersioningBundle\VCS\TaggingMode;
 use Bizkit\VersioningBundle\Writer\YamlFileWriter;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Yaml\Yaml;
@@ -39,14 +40,6 @@ final class IncrementCommandTest extends TestCase
             $this->validFile,
             $this->invalidFile,
         );
-    }
-
-    public function testExceptionIsThrownForInvalidTaggingMode(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid VCS tagging mode "invalid". Expected one of: "always", "never", "ask".');
-
-        $this->createCommandTester($this->validFile, null, 'invalid');
     }
 
     public function testVersionIsIncremented(): void
@@ -186,7 +179,7 @@ final class IncrementCommandTest extends TestCase
 
     public function testFileIsCommittedAndTagIsAutocreatedIfVCSHandlerIsNotNullAndTaggingModeIsAlways(): void
     {
-        $commandTester = $this->createCommandTester($this->validFile, __DIR__.'/Fixtures/fake-git/success.php', 'always');
+        $commandTester = $this->createCommandTester($this->validFile, __DIR__.'/Fixtures/fake-git/success.php', TaggingMode::Always);
         $commandTester->setInputs(['yes', 'yes']);
 
         $statusCode = $commandTester->execute([]);
@@ -202,7 +195,7 @@ final class IncrementCommandTest extends TestCase
 
     public function testFileIsCommittedAndTagIsNotPromptedIfVCSHandlerIsNotNullAndTaggingModeIsNever(): void
     {
-        $commandTester = $this->createCommandTester($this->validFile, __DIR__.'/Fixtures/fake-git/success.php', 'never');
+        $commandTester = $this->createCommandTester($this->validFile, __DIR__.'/Fixtures/fake-git/success.php', TaggingMode::Never);
         $commandTester->setInputs(['yes', 'yes']);
 
         $statusCode = $commandTester->execute([]);
@@ -232,7 +225,7 @@ final class IncrementCommandTest extends TestCase
         self::assertStringContainsString('Cannot create the tag "v2" as it already exists.', $display);
     }
 
-    private function createCommandTester(string $file, ?string $pathToVCSExecutable = null, string $taggingMode = 'ask'): CommandTester
+    private function createCommandTester(string $file, ?string $pathToVCSExecutable = null, TaggingMode $taggingMode = TaggingMode::Ask): CommandTester
     {
         $vcs = null !== $pathToVCSExecutable ? new GitHandler($file, pathToExecutable: $pathToVCSExecutable) : null;
 

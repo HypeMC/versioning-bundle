@@ -64,9 +64,9 @@ Symfony bundle which provides a way to version your application using various ve
 
             # The mode for applying tags to version commits:
             # - 'always': automatically add a tag without prompting
-            # - 'never': do not add a tag
             # - 'ask': prompt before tagging when incrementing versions
-            tagging_mode:         ask # One of "always"; "never"; "ask"
+            # - 'never': do not add a tag
+            tagging_mode:         ask # One of "always"; "ask"; "never"
 
             # The message to use for the VCS tag.
             tag_message:          'Update application version to %s'
