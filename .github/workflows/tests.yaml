@@ -99,7 +99,7 @@ jobs:
         name: PHP ${{ matrix.php }} & Symfony ${{ matrix.symfony }}${{ matrix.dependencies == 'lowest' && ' (lowest)' || '' }} Test
         steps:
             -   name: Checkout
-                uses: actions/checkout@v4
+                uses: actions/checkout@v6
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -109,7 +109,7 @@ jobs:
                     tools: flex
 
             -   name: Install Dependencies
-                uses: ramsey/composer-install@v2
+                uses: ramsey/composer-install@v3
                 with:
                     composer-options: '--prefer-dist'
                     dependency-versions: ${{ matrix.dependencies }}
@@ -122,8 +122,8 @@ jobs:
 
             -   name: Upload Coverage to Codecov
                 if: ${{ success() }}
-                uses: codecov/codecov-action@v4
+                uses: codecov/codecov-action@v5
                 with:
-                    file: coverage.xml
+                    files: coverage.xml
                     flags: ${{ matrix.php }}
                     token: ${{ secrets.CODECOV_TOKEN }}

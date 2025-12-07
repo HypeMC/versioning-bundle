@@ -13,7 +13,7 @@ jobs:
         name: Coding Standards
         steps:
             -   name: Checkout
-                uses: actions/checkout@v4
+                uses: actions/checkout@v6
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -30,7 +30,7 @@ jobs:
         name: Static Analysis
         steps:
             -   name: Checkout
-                uses: actions/checkout@v4
+                uses: actions/checkout@v6
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -40,7 +40,7 @@ jobs:
                     tools: phpstan
 
             -   name: Install Dependencies
-                uses: ramsey/composer-install@v2
+                uses: ramsey/composer-install@v3
                 with:
                     composer-options: '--prefer-dist'
 
