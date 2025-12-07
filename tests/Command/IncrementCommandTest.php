@@ -137,7 +137,7 @@ final class IncrementCommandTest extends TestCase
 
     public function testCommandFailsWhenNewVersionCannotBeStored(): void
     {
-        chmod($this->validFile, 0400);
+        chmod($this->validFile, 0o400);
 
         $commandTester = $this->createCommandTester($this->validFile);
         $commandTester->setInputs(['yes']);

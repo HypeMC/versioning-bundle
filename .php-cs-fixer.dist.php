@@ -11,8 +11,8 @@ return (new PhpCsFixer\Config())
     ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setUsingCache(true)
     ->setRules([
-        '@PHP71Migration' => true,
-        '@PHPUnit100Migration:risky' => true,
+        '@PHP8x1Migration' => true,
+        '@PHPUnit10x0Migration:risky' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
         'declare_strict_types' => true,

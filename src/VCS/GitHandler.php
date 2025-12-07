@@ -41,7 +41,7 @@ final class GitHandler implements VCSHandlerInterface
         ?string $vcsEmail = null,
         ?string $pathToExecutable = null
     ) {
-        $pathToExecutable = $pathToExecutable ?? (new ExecutableFinder())->find('git');
+        $pathToExecutable ??= (new ExecutableFinder())->find('git');
 
         if (null === $pathToExecutable) {
             throw new VCSException('Unable to find the Git executable.');

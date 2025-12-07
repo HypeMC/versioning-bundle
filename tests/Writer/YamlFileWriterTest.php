@@ -41,13 +41,13 @@ final class YamlFileWriterTest extends TestCase
         $writer->write($version);
 
         $yaml = <<<'YAML'
-# %s
-parameters:
-    %2$s.version: 1.2.3
-    %2$s.version_hash: b0e8daa258acbb6fc4c86f89e0c9183e
-    %2$s.release_date: '2019-03-02T10:56:12+02:00'
+            # %s
+            parameters:
+                %2$s.version: 1.2.3
+                %2$s.version_hash: b0e8daa258acbb6fc4c86f89e0c9183e
+                %2$s.release_date: '2019-03-02T10:56:12+02:00'
 
-YAML;
+            YAML;
 
         self::assertStringEqualsFile($this->file, \sprintf($yaml, WriterInterface::COMMENT, $prefix));
     }

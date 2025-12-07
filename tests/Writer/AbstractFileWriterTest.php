@@ -49,7 +49,7 @@ final class AbstractFileWriterTest extends TestCase
     public function testExceptionIsThrownIfFileIsNotWritable(): void
     {
         touch($this->file);
-        chmod($this->file, 0400);
+        chmod($this->file, 0o400);
 
         $writer = new class($this->file, 'app') extends AbstractFileWriter {
             public function write(Version $version): void
