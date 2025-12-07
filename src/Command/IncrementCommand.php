@@ -30,56 +30,19 @@ final class IncrementCommand extends Command
 
     public const TAGGING_MODES = ['always', 'never', 'ask'];
 
-    /**
-     * @var string
-     */
-    private $file;
-
-    /**
-     * @var ReaderInterface
-     */
-    private $reader;
-
-    /**
-     * @var WriterInterface
-     */
-    private $writer;
-
-    /**
-     * @var StrategyInterface
-     */
-    private $strategy;
-
-    /**
-     * @var VCSHandlerInterface|null
-     */
-    private $vcsHandler;
-
-    /**
-     * @var string
-     */
-    private $vcsTaggingMode;
-
     public function __construct(
-        string $file,
-        ReaderInterface $reader,
-        WriterInterface $writer,
-        StrategyInterface $strategy,
-        ?VCSHandlerInterface $vcsHandler = null,
-        string $vcsTaggingMode = 'ask'
+        private readonly string $file,
+        private readonly ReaderInterface $reader,
+        private readonly WriterInterface $writer,
+        private readonly StrategyInterface $strategy,
+        private readonly ?VCSHandlerInterface $vcsHandler = null,
+        private readonly string $vcsTaggingMode = 'ask',
     ) {
         if (!\in_array($vcsTaggingMode, self::TAGGING_MODES, true)) {
             throw new \InvalidArgumentException(
-                \sprintf('Invalid VCS tagging mode "%s". Expected one of: "%s".', $vcsTaggingMode, implode('", "', self::TAGGING_MODES))
+                \sprintf('Invalid VCS tagging mode "%s". Expected one of: "%s".', $vcsTaggingMode, implode('", "', self::TAGGING_MODES)),
             );
         }
-
-        $this->file = $file;
-        $this->reader = $reader;
-        $this->writer = $writer;
-        $this->strategy = $strategy;
-        $this->vcsHandler = $vcsHandler;
-        $this->vcsTaggingMode = $vcsTaggingMode;
 
         parent::__construct();
     }
@@ -122,7 +85,7 @@ final class IncrementCommand extends Command
         $io->success(\sprintf(
             'Your application version has been %s to "%s".',
             null === $version ? 'initialized' : 'incremented',
-            $newVersion
+            $newVersion,
         ));
 
         try {

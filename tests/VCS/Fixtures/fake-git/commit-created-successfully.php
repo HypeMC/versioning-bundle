@@ -12,7 +12,7 @@ switch ($command = implode(' ', array_slice($argv, 1))) {
     case sprintf('diff --cached --exit-code --quiet %s', $file):
         echo 'diff exists';
         exit(1);
-    case sprintf('commit -m Commit msg 1.2.3 %s', $file):
+    case sprintf('commit -m Update application version to 1.2.3 %s', $file):
         echo 'commit successful';
         exit(0);
     default:
