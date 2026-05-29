@@ -12,13 +12,13 @@ return (new PhpCsFixer\Config())
     ->setUsingCache(true)
     ->setRules([
         '@PHP8x1Migration' => true,
-        '@PHPUnit10x0Migration:risky' => true,
+        '@PHPUnit11x0Migration:risky' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
         'declare_strict_types' => true,
         'heredoc_to_nowdoc' => true,
         'no_superfluous_phpdoc_tags' => true,
-        'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
+        'php_unit_test_case_static_method_calls' => ['call_type' => 'self', 'target' => '11.0'],
         'self_static_accessor' => true,
         'single_line_throw' => false,
         'trailing_comma_in_multiline' => [

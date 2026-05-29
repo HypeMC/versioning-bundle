@@ -8,10 +8,9 @@ use Bizkit\VersioningBundle\Exception\StorageException;
 use Bizkit\VersioningBundle\Tests\TestCase;
 use Bizkit\VersioningBundle\Version;
 use Bizkit\VersioningBundle\Writer\AbstractFileWriter;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Bizkit\VersioningBundle\Writer\AbstractFileWriter
- */
+#[CoversClass(AbstractFileWriter::class)]
 final class AbstractFileWriterTest extends TestCase
 {
     private string $file;

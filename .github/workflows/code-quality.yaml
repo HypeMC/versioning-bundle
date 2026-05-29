@@ -44,8 +44,5 @@ jobs:
                 with:
                     composer-options: '--prefer-dist'
 
-            -   name: Install PHPUnit Dependencies
-                run: vendor/bin/simple-phpunit install
-
             -   name: Run PHPStan
                 run: phpstan analyse --no-progress

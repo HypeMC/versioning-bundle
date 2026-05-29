@@ -45,17 +45,32 @@ jobs:
                     ini-values: zend.exception_ignore_args=false
                     tools: flex
 
+            -   name: Determine compatible PHPUnit version
+                id: phpunit
+                run: |
+                    PHPUNIT_VERSION=$(
+                        case "${{ matrix.php }}" in
+                            8.4|8.5) echo '^13.1' ;;
+                            8.3) echo '^12.5' ;;
+                            8.2) echo '^11.5' ;;
+                            8.1) echo '^10.5' ;;
+                            *) echo "Unsupported PHP version"; exit 1 ;;
+                        esac
+                    )
+
+                    echo "version=${PHPUNIT_VERSION}" >>"$GITHUB_OUTPUT"
+
+            -   name: Require compatible PHPUnit version
+                run: composer require --dev --no-update --no-interaction phpunit/phpunit:${{ steps.phpunit.outputs.version }}
+
             -   name: Install Dependencies
                 uses: ramsey/composer-install@v3
                 with:
                     composer-options: '--prefer-dist'
                     dependency-versions: ${{ matrix.dependencies }}
 
-            -   name: Install PHPUnit Dependencies
-                run: vendor/bin/simple-phpunit install
-
             -   name: Run PHPUnit
-                run: vendor/bin/simple-phpunit -v --coverage-text --coverage-clover=coverage.xml
+                run: vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml
 
             -   name: Upload Coverage to Codecov
                 if: ${{ success() }}

@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Bizkit\VersioningBundle\Tests;
 
 use Bizkit\VersioningBundle\Version;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Bizkit\VersioningBundle\Version
- */
+#[CoversClass(Version::class)]
 final class VersionTest extends TestCase
 {
     public function testPassedValues(): void

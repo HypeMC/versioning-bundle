@@ -18,13 +18,13 @@ use Bizkit\VersioningBundle\VCS\GitHandler;
 use Bizkit\VersioningBundle\VCS\VCSHandlerInterface;
 use Bizkit\VersioningBundle\Writer\WriterInterface;
 use Bizkit\VersioningBundle\Writer\YamlFileWriter;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Config\Exception\LoaderLoadException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
-/**
- * @covers \Bizkit\VersioningBundle\DependencyInjection\BizkitVersioningExtension
- */
+#[CoversClass(BizkitVersioningExtension::class)]
 final class BizkitVersioningExtensionTest extends TestCase
 {
     public function testDefaultServicesAreRegistered(): void
@@ -378,9 +378,7 @@ final class BizkitVersioningExtensionTest extends TestCase
         $extension->process($container);
     }
 
-    /**
-     * @dataProvider serviceIds
-     */
+    #[DataProvider('serviceIds')]
     public function testServiceCanBeInstantiated(string $serviceId): void
     {
         $container = new ContainerBuilder();

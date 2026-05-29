@@ -27,7 +27,7 @@
         "symfony/yaml": "^6.4 || ^7.4 || ^8.0"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^8.0"
+        "phpunit/phpunit": "^10.5 || ^11.5 || ^12.5 || ^13.1"
     },
     "autoload": {
         "psr-4": {
@@ -42,7 +42,7 @@
     "scripts": {
         "run-checks": [
             "php-cs-fixer fix -vvv",
-            "simple-phpunit",
+            "phpunit",
             "phpstan analyse"
         ]
     },

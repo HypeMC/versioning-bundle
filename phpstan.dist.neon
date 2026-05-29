@@ -3,8 +3,6 @@ parameters:
     paths:
         - src
         - tests
-    bootstrapFiles:
-        - phpstan-autoload.php
     ignoreErrors:
         -
             message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition\:\:children\(\)\.$#'

@@ -7,12 +7,12 @@ namespace Bizkit\VersioningBundle\Tests\DependencyInjection;
 use Bizkit\VersioningBundle\DependencyInjection\Configuration;
 use Bizkit\VersioningBundle\Tests\TestCase;
 use Bizkit\VersioningBundle\VCS\TaggingMode;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\Processor;
 
-/**
- * @covers \Bizkit\VersioningBundle\DependencyInjection\Configuration
- */
+#[CoversClass(Configuration::class)]
 final class ConfigurationTest extends TestCase
 {
     public function testDefaultConfig(): void
@@ -73,9 +73,7 @@ final class ConfigurationTest extends TestCase
         ], $config['vcs']);
     }
 
-    /**
-     * @dataProvider provideVCSTaggingModeAsStringCases
-     */
+    #[DataProvider('provideVCSTaggingModeAsStringCases')]
     public function testConfigWhenVCSTaggingModeIsString(string $taggingMode, TaggingMode $expectedTaggingMode): void
     {
         $config = (new Processor())->processConfiguration(new Configuration(), ['bizkit_versioning' => [

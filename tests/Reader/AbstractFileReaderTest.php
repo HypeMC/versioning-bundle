@@ -8,10 +8,9 @@ use Bizkit\VersioningBundle\Exception\StorageException;
 use Bizkit\VersioningBundle\Reader\AbstractFileReader;
 use Bizkit\VersioningBundle\Tests\TestCase;
 use Bizkit\VersioningBundle\Version;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Bizkit\VersioningBundle\Reader\AbstractFileReader
- */
+#[CoversClass(AbstractFileReader::class)]
 final class AbstractFileReaderTest extends TestCase
 {
     public function testReadFileContents(): void

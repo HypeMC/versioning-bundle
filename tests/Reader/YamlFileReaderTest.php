@@ -7,10 +7,9 @@ namespace Bizkit\VersioningBundle\Tests\Reader;
 use Bizkit\VersioningBundle\Exception\InvalidDataException;
 use Bizkit\VersioningBundle\Reader\YamlFileReader;
 use Bizkit\VersioningBundle\Tests\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Bizkit\VersioningBundle\Reader\YamlFileReader
- */
+#[CoversClass(YamlFileReader::class)]
 final class YamlFileReaderTest extends TestCase
 {
     public function testValidData(): void

@@ -8,21 +8,21 @@ use Bizkit\VersioningBundle\Exception\InvalidVersionFormatException;
 use Bizkit\VersioningBundle\Strategy\IncrementingStrategy;
 use Bizkit\VersioningBundle\Tests\TestCase;
 use Bizkit\VersioningBundle\Version;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\Stub;
 use Symfony\Component\Console\Style\StyleInterface;
 
-/**
- * @covers \Bizkit\VersioningBundle\Strategy\IncrementingStrategy
- */
+#[CoversClass(IncrementingStrategy::class)]
 final class IncrementingStrategyTest extends TestCase
 {
     private IncrementingStrategy $strategy;
-    private MockObject&StyleInterface $io;
+    private Stub&StyleInterface $io;
 
     protected function setUp(): void
     {
         $this->strategy = new IncrementingStrategy();
-        $this->io = $this->createMock(StyleInterface::class);
+        $this->io = self::createStub(StyleInterface::class);
     }
 
     protected function tearDown(): void
@@ -33,9 +33,7 @@ final class IncrementingStrategyTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider validVersionAndIncrementedVersionPairs
-     */
+    #[DataProvider('validVersionAndIncrementedVersionPairs')]
     public function testVersionIsIncremented(string $version, string $incrementedVersion): void
     {
         $oldVersion = new Version($version, new \DateTimeImmutable('2005-05-05'));
@@ -49,9 +47,7 @@ final class IncrementingStrategyTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider initialValues
-     */
+    #[DataProvider('initialValues')]
     public function testInitialVersionIsReturnedWhenNullIsPassed(string $initialValue): void
     {
         $newVersion = ($this->strategy)($this->io);
@@ -59,9 +55,7 @@ final class IncrementingStrategyTest extends TestCase
         self::assertSame($initialValue, $newVersion->getVersionNumber());
     }
 
-    /**
-     * @dataProvider invalidVersions
-     */
+    #[DataProvider('invalidVersions')]
     public function testExceptionIsThrownOnInvalidVersion(string $invalidVersion): void
     {
         $this->expectException(InvalidVersionFormatException::class);

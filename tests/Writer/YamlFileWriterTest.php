@@ -8,10 +8,10 @@ use Bizkit\VersioningBundle\Tests\TestCase;
 use Bizkit\VersioningBundle\Version;
 use Bizkit\VersioningBundle\Writer\WriterInterface;
 use Bizkit\VersioningBundle\Writer\YamlFileWriter;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-/**
- * @covers \Bizkit\VersioningBundle\Writer\YamlFileWriter
- */
+#[CoversClass(YamlFileWriter::class)]
 final class YamlFileWriterTest extends TestCase
 {
     private string $file;
@@ -27,9 +27,7 @@ final class YamlFileWriterTest extends TestCase
         unset($this->file);
     }
 
-    /**
-     * @dataProvider prefixes
-     */
+    #[DataProvider('prefixes')]
     public function testWrite(string $prefix): void
     {
         $version = new Version('1.2.3', new \DateTimeImmutable('2019-03-02T10:56:12+02:00'));

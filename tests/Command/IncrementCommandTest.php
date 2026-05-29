@@ -11,12 +11,11 @@ use Bizkit\VersioningBundle\Tests\TestCase;
 use Bizkit\VersioningBundle\VCS\GitHandler;
 use Bizkit\VersioningBundle\VCS\TaggingMode;
 use Bizkit\VersioningBundle\Writer\YamlFileWriter;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Yaml\Yaml;
 
-/**
- * @covers \Bizkit\VersioningBundle\Command\IncrementCommand
- */
+#[CoversClass(IncrementCommand::class)]
 final class IncrementCommandTest extends TestCase
 {
     private string $validFile;

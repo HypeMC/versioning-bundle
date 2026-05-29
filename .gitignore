@@ -3,12 +3,12 @@ composer.lock
 vendor/
 
 # PHP Coding Standards Fixer
-.php-cs-fixer.php
 .php-cs-fixer.cache
+.php-cs-fixer.php
 
 # PHPStan
 phpstan.neon
 
 # PHPUnit
-.phpunit.result.cache
+.phpunit.cache
 phpunit.xml

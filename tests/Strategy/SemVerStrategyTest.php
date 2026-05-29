@@ -8,41 +8,34 @@ use Bizkit\VersioningBundle\Exception\InvalidVersionFormatException;
 use Bizkit\VersioningBundle\Strategy\SemVerStrategy;
 use Bizkit\VersioningBundle\Tests\TestCase;
 use Bizkit\VersioningBundle\Version;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Console\Style\StyleInterface;
 
-/**
- * @covers \Bizkit\VersioningBundle\Strategy\SemVerStrategy
- */
+#[CoversClass(SemVerStrategy::class)]
 final class SemVerStrategyTest extends TestCase
 {
     private SemVerStrategy $strategy;
-    private MockObject&StyleInterface $io;
 
     protected function setUp(): void
     {
         $this->strategy = new SemVerStrategy('minor');
-        $this->io = $this->createMock(StyleInterface::class);
     }
 
     protected function tearDown(): void
     {
-        unset(
-            $this->strategy,
-            $this->io,
-        );
+        unset($this->strategy);
     }
 
-    /**
-     * @dataProvider validVersionAndIncrementedVersionPairs
-     */
+    #[DataProvider('validVersionAndIncrementedVersionPairs')]
     public function testVersionIsIncremented(string $version, string $incrementedVersion, string $type): void
     {
-        $this->io->method('choice')->willReturn($type);
+        $io = self::createStub(StyleInterface::class);
+        $io->method('choice')->willReturn($type);
 
         $oldVersion = new Version($version, new \DateTimeImmutable('2005-05-05'));
 
-        $newVersion = ($this->strategy)($this->io, $oldVersion);
+        $newVersion = ($this->strategy)($io, $oldVersion);
 
         self::assertSame($incrementedVersion, $newVersion->getVersionNumber());
         self::assertNotSame(
@@ -51,18 +44,18 @@ final class SemVerStrategyTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider validVersionAndIncrementedVersionPairs
-     */
+    #[DataProvider('validVersionAndIncrementedVersionPairs')]
     public function testDefaultVersionType(string $version, string $incrementedVersion, string $type): void
     {
-        $this->io
+        $io = $this->createMock(StyleInterface::class);
+        $io
+            ->expects($this->once())
             ->method('choice')
-            ->with(self::isType('string'), self::isType('array'), $type)
+            ->with(self::isString(), self::isArray(), $type)
             ->willReturn($type)
         ;
 
-        $newVersion = (new SemVerStrategy($type))($this->io, new Version($version));
+        $newVersion = (new SemVerStrategy($type))($io, new Version($version));
 
         self::assertSame($incrementedVersion, $newVersion->getVersionNumber());
     }
@@ -82,14 +75,13 @@ final class SemVerStrategyTest extends TestCase
         yield ['1.2.3', '1.2.4', 'patch'];
     }
 
-    /**
-     * @dataProvider initialValues
-     */
+    #[DataProvider('initialValues')]
     public function testInitialVersionIsReturnedWhenNullIsPassed(string $initialValue, string $type): void
     {
-        $this->io->method('choice')->willReturn($type);
+        $io = self::createStub(StyleInterface::class);
+        $io->method('choice')->willReturn($type);
 
-        $newVersion = ($this->strategy)($this->io);
+        $newVersion = ($this->strategy)($io);
 
         self::assertSame($initialValue, $newVersion->getVersionNumber());
     }
@@ -101,16 +93,15 @@ final class SemVerStrategyTest extends TestCase
         yield ['0.0.1', 'patch'];
     }
 
-    /**
-     * @dataProvider invalidVersions
-     */
+    #[DataProvider('invalidVersions')]
     public function testExceptionIsThrownOnInvalidVersion(string $invalidVersion, string $type): void
     {
-        $this->io->method('choice')->willReturn($type);
+        $io = self::createStub(StyleInterface::class);
+        $io->method('choice')->willReturn($type);
 
         $this->expectException(InvalidVersionFormatException::class);
 
-        ($this->strategy)($this->io, new Version($invalidVersion));
+        ($this->strategy)($io, new Version($invalidVersion));
     }
 
     public static function invalidVersions(): iterable
