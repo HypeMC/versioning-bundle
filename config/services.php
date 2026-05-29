@@ -15,7 +15,7 @@ use Bizkit\VersioningBundle\VCS\VCSHandlerInterface;
 use Bizkit\VersioningBundle\Writer\WriterInterface;
 use Bizkit\VersioningBundle\Writer\YamlFileWriter;
 
-return function (ContainerConfigurator $container): void {
+return static function (ContainerConfigurator $container): void {
     $container->services()
         ->defaults()
             ->private()
