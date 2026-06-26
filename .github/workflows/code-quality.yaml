@@ -40,7 +40,7 @@ jobs:
                     tools: phpstan
 
             -   name: Install Dependencies
-                uses: ramsey/composer-install@v2
+                uses: ramsey/composer-install@v4
                 with:
                     composer-options: '--prefer-dist'
 
