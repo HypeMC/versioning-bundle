@@ -48,6 +48,9 @@
         ]
     },
     "config": {
+        "audit": {
+            "block-insecure": false
+        },
         "sort-packages": true
     }
 }
