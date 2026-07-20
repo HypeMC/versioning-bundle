@@ -3,6 +3,7 @@ name: Code Quality
 on:
     push:
     pull_request:
+        branches: [ '*.x' ]
     workflow_dispatch:
     schedule:
         -   cron: '0 8 * * *'
@@ -11,7 +12,29 @@ concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: true
 
+env:
+    PHP_VERSION: '8.1'
+
 jobs:
+    composer:
+        runs-on: ubuntu-latest
+        name: Composer Validation
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v7
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ env.PHP_VERSION }}
+                    coverage: none
+
+            -   name: Validate composer.json
+                run: composer validate --strict
+
+            -   name: Check for PSR Violations
+                run: composer dump --optimize --strict-psr
+
     php-cs-fixer:
         runs-on: ubuntu-latest
         name: Coding Standards
@@ -22,11 +45,11 @@ jobs:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: '8.1'
+                    php-version: ${{ env.PHP_VERSION }}
                     coverage: none
                     tools: php-cs-fixer, cs2pr
 
-            -   name: Run PHP CS Fixer
+            -   name: PHP Coding Standards Fixer
                 run: php-cs-fixer fix --dry-run --format checkstyle | cs2pr
 
     phpstan:
@@ -39,7 +62,7 @@ jobs:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: '8.1'
+                    php-version: ${{ env.PHP_VERSION }}
                     coverage: none
                     tools: phpstan
 
