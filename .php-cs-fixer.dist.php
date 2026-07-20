@@ -15,6 +15,7 @@ return (new PhpCsFixer\Config())
         '@PHPUnit100Migration:risky' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
+        'attribute_empty_parentheses' => true,
         'declare_strict_types' => true,
         'heredoc_to_nowdoc' => true,
         'no_superfluous_phpdoc_tags' => true,
