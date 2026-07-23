@@ -1,8 +1,8 @@
 # BizkitVersioningBundle
 
 [![Latest Stable Version](https://poser.pugx.org/bizkit/versioning-bundle/v/stable)](https://packagist.org/packages/bizkit/versioning-bundle)
-[![Build Status](https://github.com/HypeMC/versioning-bundle/workflows/Tests/badge.svg)](https://github.com/HypeMC/versioning-bundle/actions)
-[![Code Coverage](https://codecov.io/gh/HypeMC/versioning-bundle/branch/1.x/graph/badge.svg)](https://codecov.io/gh/HypeMC/versioning-bundle)
+[![Build Status](https://github.com/HypeMC/versioning-bundle/actions/workflows/tests.yaml/badge.svg?branch=2.x)](https://github.com/HypeMC/versioning-bundle/actions/workflows/tests.yaml)
+[![Code Coverage](https://codecov.io/gh/HypeMC/versioning-bundle/branch/2.x/graph/badge.svg)](https://codecov.io/gh/HypeMC/versioning-bundle)
 [![License](https://poser.pugx.org/bizkit/versioning-bundle/license)](https://packagist.org/packages/bizkit/versioning-bundle)
 
 Symfony bundle which provides a way to version your application using various versioning strategies.
