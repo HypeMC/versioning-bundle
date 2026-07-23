@@ -1,7 +1,7 @@
 # BizkitVersioningBundle
 
 [![Latest Stable Version](https://poser.pugx.org/bizkit/versioning-bundle/v/stable)](https://packagist.org/packages/bizkit/versioning-bundle)
-[![Build Status](https://github.com/HypeMC/versioning-bundle/workflows/Tests/badge.svg)](https://github.com/HypeMC/versioning-bundle/actions)
+[![Build Status](https://github.com/HypeMC/versioning-bundle/actions/workflows/tests.yaml/badge.svg?branch=1.x)](https://github.com/HypeMC/versioning-bundle/actions/workflows/tests.yaml)
 [![Code Coverage](https://codecov.io/gh/HypeMC/versioning-bundle/branch/1.x/graph/badge.svg)](https://codecov.io/gh/HypeMC/versioning-bundle)
 [![License](https://poser.pugx.org/bizkit/versioning-bundle/license)](https://packagist.org/packages/bizkit/versioning-bundle)
 
